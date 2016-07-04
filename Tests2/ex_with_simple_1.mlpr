@@ -1,0 +1,12 @@
+let fun i2s x = String.fromInt x
+    fun print x = String.output (i2s x)
+    fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n")
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+    fun f {x=a, ...=r} = {...=a, b=r.y}
+    fun f' r = r.b
+
+in (assert (1, f' (f {x={a=1, c=3}, y=5}), 5); 0) 
+end

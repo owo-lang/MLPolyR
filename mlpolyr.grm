@@ -1,0 +1,399 @@
+(* -*- sml-yacc -*-
+ * mlpolyr.grm
+ *
+ *   The MLPolyR Grammar (for ML-Yacc).
+ *
+ * Copyright (c) 2005 by Matthias Blume (blume@tti-c.org)
+ *)
+
+%%
+
+%term NAME of Ast.symbol
+    | NUMBER of Ast.integer
+    | SMALLNUM of int
+    | STRING of string
+    | KW_andalso | KW_orelse
+    | KW_if | KW_then | KW_else
+    | KW_false | KW_true
+    | KW_let | KW_in | KW_end
+    | KW_fun | KW_and | KW_val
+    | KW_fn
+    | KW_match | KW_with
+    | KW_cases | KW_default | KW_nocases
+    | KW_as
+    | KW_where
+    | KW_case | KW_of
+    | KW_try | KW_handling | KW_rehandling
+    | KW_raise
+    | KW_isnull
+    | KW_not
+    | LP | RP | LCB | RCB | LCBB | RCBB | LSB | RSB
+    | DEQ | LTEQ | LT | GTEQ | GT | NEQ
+    | DCOLON
+    | PLUS | MINUS | TIMES | DIV | MOD
+    | EQ | DOT | COMMA | SEMI | EXCLAM | ASSIGN
+    | BAR | DARROW
+    | COLON
+    | WILD | DOTDOTDOT
+    | BQ | PLUSPLUS
+    | EOF
+
+%nonterm program of Ast.program
+       | function of Ast.function
+       | functions of Ast.function list
+       | morefunctions of Ast.function list
+       | rc of Ast.reccases
+       | rcl of Ast.reccases list
+       | morercl of Ast.reccases list
+       | optrcl of Ast.reccases list
+       | def of Ast.def
+       | defs of Ast.def list
+       | exp of Ast.exp
+       | exp0 of Ast.exp
+       | dtmatch of Ast.dtmatch
+       | recordexp of Purity.purity * Ast.exp Ast.field list
+       | rowexp of Ast.exp Ast.field list
+       | fieldexpseq of Ast.exp Ast.field list
+       | fieldexp of Ast.exp Ast.field
+       | expseq' of Ast.exp list
+       | seqexp of Ast.exp
+       | explistopt of Ast.exp list
+       | explist' of Ast.exp list
+       | atomicexp of Ast.exp
+       | selexp of Ast.exp
+       | selexp0 of Ast.exp
+       | appexp of Ast.exp
+       | appexp0 of Ast.exp
+       | label of Ast.mlabel
+       | con of Ast.mlabel
+       | number of LiteralData.integer
+       | formals of Ast.pat list
+       | pat0 of Ast.pat
+       | pat of Ast.pat
+       | patlist of Ast.pat list
+       | rowpat of Ast.pat Ast.field list
+       | fieldpatlist of Ast.pat Ast.field list
+       | fieldpat of Ast.pat Ast.field
+       | mr of Ast.mrule
+       | mrlist of Ast.mrule list
+       | handlers of Ast.mrule list * Ast.lambda option * Ast.mrule list
+       | rehandling of Ast.mrule list
+       | handling of Ast.mrule list * Ast.lambda option
+       | defaultmatch of Ast.exp option
+
+%left KW_else DARROW COLON KW_of KW_with KW_raise
+%left ASSIGN
+%left KW_where
+%left KW_as
+%left KW_orelse
+%left KW_andalso
+%left DEQ LTEQ LT GTEQ GT NEQ
+%right DCOLON
+%left PLUS MINUS PLUSPLUS
+%left TIMES DIV MOD
+
+%pos int
+%verbose
+%start program
+%eop EOF
+%noshift EOF
+
+%name MLPolyR
+
+%%
+
+program       : exp
+		((exp, (expleft, expright)))
+
+function      : NAME formals EQ exp
+		(Ast.FUN (NAME, formals, exp, (NAMEleft, expright)))
+
+functions     : function morefunctions
+		(function :: morefunctions)
+
+morefunctions : (* empty *)
+		([])
+	      | KW_and functions
+		(functions)
+
+optrcl        : (* empty *)
+		([])
+	      | KW_with KW_cases rcl
+		(rcl)
+
+rcl           : rc morercl
+		(rc :: morercl)
+
+morercl       : (* empty *)
+		([])
+	      | KW_and rcl
+		(rcl)
+
+rc            : NAME EQ exp
+                (Ast.RC (NAME, exp, (NAMEleft, expright))) 
+
+formals       : pat
+		([pat])
+	      | pat formals
+		(pat :: formals)
+
+pat0          : WILD
+		(Ast.WILDpat)
+	      | NAME
+		(Ast.VARpat NAME)
+	      | LP RP
+		(Ast.TUPLEpat [])
+	      | LP pat RP
+		(pat)
+	      | LP patlist RP
+		(Ast.TUPLEpat patlist)
+	      | LCB rowpat RCB
+		(Ast.RECORDpat (Purity.Pure, rowpat))
+	      | LCBB rowpat RCBB
+		(Ast.RECORDpat (Purity.Impure, rowpat))
+	      | BQ LCB rowpat RCB
+		(Ast.MATCHpat rowpat)
+	      | pat KW_as pat
+		(Ast.ANDpat (pat1, pat2))
+
+pat           : pat0
+		(Ast.MARKpat (pat0, (pat0left, pat0right)))
+
+patlist       : pat COMMA pat
+		([pat1, pat2])
+	      | pat COMMA patlist
+		(pat :: patlist)
+
+rowpat        : (* empty *)
+		([])
+	      | fieldpatlist
+		(fieldpatlist)
+
+fieldpatlist  : fieldpat
+		([fieldpat])
+	      | fieldpat COMMA fieldpatlist
+		(fieldpat :: fieldpatlist)
+
+fieldpat      : NAME
+		((SOME (RecordLabel.SYMlab NAME, (NAMEleft, NAMEright)),
+		  Ast.VARpat NAME))
+	      | label EQ pat
+		((SOME label, pat))
+	      | DOTDOTDOT
+		((NONE, Ast.WILDpat))
+	      | DOTDOTDOT EQ pat
+		((NONE, pat))
+
+def           : KW_val pat EQ exp
+		(Ast.VALdef (pat, exp))
+	      | KW_fun functions optrcl
+		(Ast.FUNdef (functions, optrcl, (KW_funleft, functionsright)))
+
+defs          : (* empty *)
+		([])
+	      | def defs
+		(def :: defs)
+
+exp0          : KW_let defs KW_in seqexp KW_end
+		(Ast.LETexp (defs, seqexp))
+	      | KW_if exp KW_then exp KW_else exp
+		(Ast.IFexp (exp1, exp2, exp3))
+	      | KW_case exp KW_of dtmatch
+		(Ast.CASEexp (exp, dtmatch))
+	      | KW_raise exp
+		(Ast.RAISEexp exp)
+	      | KW_try pat EQ exp KW_in exp handlers KW_end
+		(Ast.TRYexp { scrutinee = exp1,
+			      success = (pat, exp2),
+			      handling = #1 handlers,
+			      catchall = #2 handlers,
+			      rehandling = #3 handlers })
+	      | KW_match exp KW_with exp
+		(Ast.PSCASEexp (exp1, exp2))
+	      | KW_cases mrlist defaultmatch
+		(Ast.MATCHexp (mrlist, defaultmatch))
+	      | exp KW_where recordexp
+		(Ast.WHEREexp (#1 recordexp, exp, #2 recordexp))
+	      | exp KW_orelse exp
+		(Ast.BINOPexp (Ast.BOOLCONN Ast.ORELSE, exp1, exp2))
+	      | exp KW_andalso exp
+		(Ast.BINOPexp (Ast.BOOLCONN Ast.ANDALSO, exp1, exp2))
+	      | exp DEQ exp
+		(Ast.BINOPexp (Ast.CMP Oper.EQ, exp1, exp2))
+	      | exp LTEQ exp
+		(Ast.BINOPexp (Ast.CMP Oper.LTEQ, exp1, exp2))
+	      | exp LT exp
+		(Ast.BINOPexp (Ast.CMP Oper.LT, exp1, exp2))
+	      | exp GTEQ exp
+		(Ast.BINOPexp (Ast.CMP Oper.GTEQ, exp1, exp2))
+	      | exp GT exp
+		(Ast.BINOPexp (Ast.CMP Oper.GT, exp1, exp2))
+	      | exp NEQ exp
+		(Ast.BINOPexp (Ast.CMP Oper.NEQ, exp1, exp2))
+	      | exp DCOLON exp
+		(Ast.BINOPexp (Ast.CONS, exp1, exp2))
+	      | exp PLUS exp
+		(Ast.BINOPexp (Ast.ARITH Oper.PLUS, exp1, exp2))
+	      | exp MINUS exp
+		(Ast.BINOPexp (Ast.ARITH Oper.MINUS, exp1, exp2))
+	      | exp TIMES exp
+		(Ast.BINOPexp (Ast.ARITH Oper.TIMES, exp1, exp2))
+	      | exp DIV exp
+		(Ast.BINOPexp (Ast.ARITH Oper.DIV, exp1, exp2))
+	      | exp MOD exp
+		(Ast.BINOPexp (Ast.ARITH Oper.MOD, exp1, exp2))
+	      | KW_fn pat DARROW exp
+		(Ast.FNexp (pat, exp))
+	      | appexp
+		(appexp)
+	      | selexp EXCLAM label ASSIGN exp
+		(Ast.ASSIGNexp (selexp, label, exp))
+
+dtmatch       : LSB RSB DARROW exp BAR pat DCOLON pat DARROW exp
+		({ nilcase = exp1, conscase = (pat1, pat2, exp2) })
+	      | pat DCOLON pat DARROW exp BAR LSB RSB DARROW exp
+		({ nilcase = exp2, conscase = (pat1, pat2, exp1) })
+
+exp           : exp0
+		(Ast.MARKexp (exp0, (exp0left, exp0right)))
+
+appexp0       : selexp
+		(selexp)
+	      | appexp selexp
+		(Ast.APPexp (appexp, selexp))
+	      | MINUS selexp
+		(Ast.UOPexp (Ast.UMINUS, selexp))
+	      | KW_isnull selexp
+		(Ast.UOPexp (Ast.ISNULL, selexp))
+	      | KW_not selexp
+		(Ast.UOPexp (Ast.NOT, selexp))
+	      | con selexp
+		(Ast.CONexp (con, selexp))
+
+appexp        : appexp0
+		(Ast.MARKexp (appexp0, (appexp0left, appexp0right)))
+
+selexp0       : atomicexp
+		(atomicexp)
+	      | selexp DOT label
+		(Ast.SELexp (Purity.Pure, selexp, label))
+	      | selexp EXCLAM label
+		(Ast.SELexp (Purity.Impure, selexp, label))
+	      | selexp PLUSPLUS label
+		(Ast.SWIDENexp (selexp, label))
+
+selexp        : selexp0
+		(Ast.MARKexp (selexp0, (selexp0left, selexp0right)))
+
+atomicexp     : KW_true
+		(Ast.BOOLexp true)
+	      | KW_false
+		(Ast.BOOLexp false)
+	      | number
+		(Ast.NUMBERexp number)
+	      | STRING
+		(Ast.STRINGexp STRING)
+	      | NAME
+		(Ast.VARexp NAME)
+	      | LP RP
+		(Ast.SEQexp [])
+	      | LP exp RP
+		(exp)
+	      | LP expseq' RP
+		(Ast.SEQexp expseq')
+	      | LP explist' RP
+		(Ast.TUPLEexp explist')
+	      | LSB explistopt RSB
+		(Ast.LISTexp explistopt)
+	      | recordexp
+		(Ast.RECORDexp recordexp)
+	      | KW_nocases
+		(Ast.MATCHexp ([], NONE))
+
+recordexp     : LCB rowexp RCB
+		(Purity.Pure, rowexp)
+	      | LCBB rowexp RCBB
+		(Purity.Impure, rowexp)
+
+rowexp        : (* empty *)
+		([])
+	      | fieldexpseq
+		(fieldexpseq)
+
+fieldexpseq   : fieldexp
+		([fieldexp])
+	      | fieldexp COMMA fieldexpseq
+		(fieldexp :: fieldexpseq)
+
+fieldexp      : label EQ exp
+		((SOME label, exp))
+	      | NAME
+		((SOME (RecordLabel.SYMlab NAME, (NAMEleft, NAMEright)),
+		  Ast.VARexp NAME))
+	      | DOTDOTDOT EQ exp
+		((NONE, exp))
+
+label         : NAME
+		(RecordLabel.SYMlab NAME, (NAMEleft, NAMEright))
+	      | SMALLNUM
+		(RecordLabel.NUMlab SMALLNUM, (SMALLNUMleft, SMALLNUMright))
+
+con           : BQ label
+		(label)
+
+explistopt    : (* empty *)
+		([])
+	      | exp
+		([exp])
+	      | explist'
+		(explist')
+
+explist'      : exp COMMA exp
+		([exp1, exp2])
+	      | exp COMMA explist'
+		(exp :: explist')
+
+expseq'       : exp SEMI exp
+		([exp1, exp2])
+	      | exp SEMI expseq'
+		(exp :: expseq')
+
+seqexp        : exp
+		(exp)
+	      | expseq'
+		(Ast.SEQexp expseq')
+
+number        : NUMBER
+		(NUMBER * 2)
+	      | SMALLNUM
+		(LiteralData.fromInt SMALLNUM * 2)
+
+mr            : BQ label pat DARROW exp
+		(label, (pat, exp), (BQleft, expright))
+
+mrlist        : mr
+		([mr])
+	      | mr BAR mrlist
+		(mr :: mrlist)
+
+rehandling    : (* empty *)
+		([])
+	      | KW_rehandling mrlist
+		(mrlist)
+
+handling      : pat DARROW exp
+		([], SOME (pat, exp))
+	      | mr
+		([mr], NONE)
+	      | mr BAR handling
+		(mr :: #1 handling, #2 handling)
+
+handlers      : rehandling
+		([], NONE, rehandling)
+	      | KW_handling handling rehandling
+		(#1 handling, #2 handling, rehandling)
+
+defaultmatch  : (* KW_nodefault *)
+		(NONE)
+	      | KW_default COLON exp
+		(SOME exp)

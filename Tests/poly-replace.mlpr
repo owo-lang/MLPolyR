@@ -1,0 +1,7 @@
+let fun print l = String.output (String.concat l)
+    fun replace r = r where  { a = 1, c = 2 }
+    val { a, b, c, d } = replace { a = -1, b = 3, c = -2, d = 4 }
+    fun i2s i = String.fromInt i
+in print [i2s a, " ", i2s b, " ", i2s c, " ", i2s d, "\n"];
+   0
+end

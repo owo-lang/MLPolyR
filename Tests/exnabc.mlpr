@@ -1,0 +1,44 @@
+let val print = String.output
+    fun checkabc () =
+	let val line = String.inputLine ()
+	in if String.compare (line, "A\n") == 0 then raise `A 0
+	   else if String.compare (line, "B\n") == 0 then raise `B true
+	   else if String.compare (line, "C\n") == 0 then raise `C "hello"
+	   else if String.compare (line, "D\n") == 0 then raise `D ()
+	   else String.output "good!\n"
+	end
+
+    fun b () =
+	try r = checkabc ()
+	in r
+	handling `B b => (print "B "; print (if b then "true" else "false"); print "\n")
+	end
+
+    fun a0 () =
+	try r = b ()
+	in r
+	rehandling `A i => (print "A "; print (String.fromInt i); print "\n";
+			    raise `A (i+1))
+	end
+
+    fun d () =
+	try r = a0 ()
+        in r
+	handling `D () => print "D ()\n"
+        end
+	
+    fun a () =
+	try r = d ()
+	in r
+	handling `A i => (print "A "; print (String.fromInt i); print "\n")
+	end
+
+    fun c () =
+	try r = a ()
+	in r
+	handling `C s => (print "C \""; print s; print "\"\n")
+	end
+
+in c ();
+   0
+end

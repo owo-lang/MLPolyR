@@ -1,0 +1,4 @@
+let fun even i = i == 0 orelse odd (i-1)
+    and odd i = i <> 0 andalso even (i-1)
+in 0
+end

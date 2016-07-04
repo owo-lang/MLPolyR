@@ -1,0 +1,68 @@
+(***********************************)
+(*         with exp                *)
+(***********************************)
+
+let (* basic library *)
+    fun s2i x = String.toInt x
+    fun i2s x = String.fromInt x
+    fun print x = String.output (i2s x)
+    fun println x = (String.output (i2s x); String.output ("\n"))
+
+    fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n")
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+    (* utilities *)
+
+    (* test scripts *)
+	fun run () = (
+		assert (1, 
+			let fun f r = {b=20, ...=r}
+				fun f' r = r.b
+				fun g _ = f {a=10, c=30}
+			in f' (g ()) end, 20);
+
+		assert (2, 
+			let fun f r = {D=4, ...=r.a}
+				fun g _ = f {a={A=1,B=2,C=3}, c=30}
+				fun g' r = r.B
+			in g' (g ()) end, 2);
+
+		assert (3, 
+			let fun f {a=x, ...} = {D=4, ...=x}
+				fun g _ = f {a={A=1,B=2,C=3}, c=30}
+				fun g' r = r.B
+			in g' (g ()) end, 2);
+
+		assert (4, 
+			let fun f r = {a=10, ...=r}
+				fun f' r = r.b
+				fun g _ =  f'(f {b=20})
+				fun g' _ = f'(f {b=20, c=30})
+			in g () end, 20);
+
+		assert (5, 
+			let fun f r = {b=20, ...=r}
+				fun f' r = r.c
+				fun g _ =  f'(f {a=10, c=30})
+				fun g' _ =  f'(f {c=5})
+			in g () end, 30);
+
+		assert (6, 
+			let fun f r = {b=20, d=40, ...=r}
+				fun f' r = r.c
+				fun g _ = f'(f {a=10, c=30})
+				fun g' _ = f'(f {c=5})
+			in g () end, 30);
+
+		(* flex record length /7,5,3/ *)
+		assert (7, 
+			let fun f r = {a=7, ...=r}
+				fun f' r = r.a
+				fun g r = f' (f r) 
+			in g {b=5, c=3} end, 7)
+	)
+
+in (run (); 0)
+end

@@ -1,0 +1,14 @@
+let fun app f =
+	let val _ = String.output "app first stage\n"
+	    fun app' l =
+		case l of [] => ()
+			| h :: t => (f h; app f t)
+	in app'
+	end
+    fun f i = if i < 0 then raise `Negative () else ()
+    (* val f' = app f *)
+in try _ = app f [1, 2, 0, -1, 3]
+   in 0
+   handling `Negative () => (String.output "too bad...\n"; 1)
+   end
+end

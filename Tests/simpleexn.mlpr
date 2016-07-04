@@ -1,0 +1,9 @@
+let fun f b = if b then raise `Fail () else f (not b)
+    fun g b =
+	try x = f b in x
+        handling `Fail () => raise `Aborted ()
+        end
+in try x = g false in x
+   handling `Fail () => 1
+   end
+end

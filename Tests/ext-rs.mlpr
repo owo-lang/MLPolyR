@@ -1,0 +1,5 @@
+let fun xaug_ab (b, r, s) =
+	if b then { a = 1, ... = r }
+	else { b = true, ... = r }
+in 0
+end

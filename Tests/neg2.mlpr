@@ -1,0 +1,31 @@
+let fun cvt_num_neg_m cvt pos =
+	cases `Num i => if pos then `Num i else `Neg (`Num i)
+            | `Neg e => cvt (e, not pos)
+
+    fun cvt_plus_m cvt pos other =
+	cases `Plus (x, y) => `Plus (cvt (x, pos), cvt (y, pos))
+        default: other
+
+    fun cvt_minus_m cvt pos other =
+	cases `Minus (x, y) => `Plus (cvt (x, pos), cvt (y, not pos))
+        default: other
+
+    (* ---- *)
+
+    fun cvt_num_neg (e, pos) =
+	match e with cvt_num_neg_m cvt_num_neg pos
+
+    fun cvt_num_neg_plus (e, pos) =
+	match e with cvt_plus_m cvt_num_neg_plus pos
+				(cvt_num_neg_m cvt_num_neg_plus pos)
+
+    fun cvt_num_neg_plus_minus (e, pos) =
+	match e with cvt_minus_m cvt_num_neg_plus_minus pos
+			(cvt_plus_m cvt_num_neg_plus_minus pos
+			      (cvt_num_neg_m cvt_num_neg_plus_minus pos))
+
+    fun cvt_num_neg_minus (e, pos) =
+	match e with cvt_minus_m cvt_num_neg_minus pos
+				 (cvt_num_neg_m cvt_num_neg_minus pos)
+in 0
+end

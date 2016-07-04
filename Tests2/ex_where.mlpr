@@ -1,0 +1,84 @@
+(***********************************)
+(*         where exp                *)
+(***********************************)
+
+let (* basic library *)
+	fun s2i x = String.toInt x
+	fun i2s x = String.fromInt x
+	fun print x = String.output (i2s x)
+	fun println x = (String.output (i2s x); String.output ("\n"))
+
+	fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n")
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+	(* utilities *)
+
+	(* test scripts *)
+	fun run () = (
+		(* basic *)
+		assert (1, 
+			let fun f r = r where {c=10}
+				fun f' r = r.c
+				fun g _ = f' (f {a=10, c=30})
+			in g () end, 10);
+
+		assert (2, 
+			let fun f r = r where {c=10}
+				fun f' r = r.c
+				fun g _ = f' (f {a=10, b=20, c=30})
+			in g () end, 10);
+
+		assert (3, 
+			let fun f r = r where {a=10}
+				fun f' r = r.b
+				fun g _ =  f' ( f {a=0, b=20, c =30} )
+				fun g' _ =  f'(f {a=20, b=30})
+			in g () end, 20);
+
+		assert (4,
+			let fun f r = r where {b=20}
+				fun f' r = r.c
+				fun g _ =  f'(f {a=10, b=true, c=30})
+				fun g' _ = f'(f {b=0, c=5})
+			in g () end, 30);
+
+		assert (5,
+			let fun f r = r where {b=20, d=40}
+				fun f' r = r.c
+				fun g _ = f'(f {a=10, b=0, c=30, d=0})
+				fun g' _ = f'(f {b=true, c=5, d="Hello"})
+			in g () end, 30);
+
+		(* flex record length /7,5,2/ *)
+		assert (6,
+			let fun f r = r
+				fun f' r = r where {a=7}
+				fun g r = let val r' = f' r in r'.a end
+			in g (f {a=0, b=5, c=3}) end, 7);
+
+		(* twisted - /10,20,30/ *)
+		assert (7,
+			let fun f r = r where {a=10}
+				fun f' r = r.b
+				fun g _ =  let val c = f {a=0, b=20,c =30} in f' c end
+				fun g' _ =  f'(f {a=20, b=30})
+			in g () end, 20);
+
+		(* twisted - /10,20,30/ *)
+		assert (8,
+			let fun f r = r where {a=10}
+				fun f' r = r.b
+				fun g r =  let val c = f r in f' c end
+				fun g' _ =  f'(f {a=20, b=30})
+			in g {a=0, b=20, c=30} end, 20)
+			
+	)
+
+in (run (); 0)
+end
+
+
+
+

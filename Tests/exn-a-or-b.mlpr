@@ -1,0 +1,19 @@
+let fun seq (x, y) = String.compare (x, y) == 0
+    val print = String.output
+    fun f () =
+	let val line = String.inputLine ()
+	in if seq (line, "A\n") then raise `A 1
+	   else if seq (line, "B\n") then raise `B true
+	   else 0
+	end
+in
+    try r = f ()
+    in r
+    handling `A _ => (print "A\n"; 1)
+           | exn =>
+	     (match exn with
+		    cases `B b => (print (if b then "B true\n"
+					  else "B false\n");
+				   2))
+    end
+end

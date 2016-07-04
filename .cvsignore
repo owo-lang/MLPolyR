@@ -1,0 +1,8 @@
+*.grm.sig
+*.grm.sml
+*.grm.desc
+*.lex.sml
+.cm
+.DS_Store
+*.ppc-darwin
+*.x86-unix

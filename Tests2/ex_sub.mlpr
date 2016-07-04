@@ -1,0 +1,26 @@
+(***********************************)
+(*         where exp                *)
+(***********************************)
+
+let (* basic library *)
+        fun s2i x = String.toInt x
+        fun i2s x = String.fromInt x
+        fun print x = String.output (i2s x)
+        fun println x = (String.output (i2s x); String.output ("\n"))
+
+        fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n")
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+        (* utilities *)
+
+in
+   assert (1, 
+	let fun f r = {c=5, ...=r}
+	    fun g s = 
+		let val {c, ...=r} = f s
+		in {a=c, ...=r}
+		end
+	in (g {b=3}).a end, 5); 0	
+end

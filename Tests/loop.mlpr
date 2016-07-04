@@ -1,0 +1,9 @@
+let fun loop () =
+	let fun foo (x) = x.a
+	in foo
+	end
+
+    val dummy = loop ()
+
+in 0
+end

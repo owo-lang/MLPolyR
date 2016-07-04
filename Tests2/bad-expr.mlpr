@@ -1,0 +1,6 @@
+let fun mkEval (c, e) = match e with c
+
+    val _ = mkEval (cases `Var v => 0, `Var 0)
+in 
+    0
+end

@@ -1,0 +1,17 @@
+let fun s2i x = String.toInt x
+    fun i2s x = String.fromInt x
+
+    fun showmod (x, y) =
+	String.output (String.concat [x, " mod ", y, " = ",
+				      i2s (s2i x % s2i y), "\n"])
+
+    fun loop l =
+	case l of
+	    [] => 0
+	  | h :: t =>
+	    case t of
+		[] => 1
+	      | ht :: tt => (showmod (h, ht); loop tt)
+
+in loop String.cmdline_args
+end

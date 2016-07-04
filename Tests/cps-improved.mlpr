@@ -1,0 +1,91 @@
+let val n = {| i = 1000 |}
+    fun withfresh f = let val i = n!i in n!i := i+1; f i end
+
+    (* ---- utilities ---- *)
+
+    fun Let (x, e1, e2) = `App (`Lam ([x], e2), [e1])
+    fun kv2kb kv = fn v => `App (kv, [v])
+    fun kb2kv kb = withfresh (fn rx => `Lam ([rx], kb (`Var rx)))
+
+    fun cvt_app (cvt, e, el, kv) =
+	let fun lc (el, kb) =
+		case el of [] => kb []
+			 | e :: el => pc (e, el, fn (v, vl) => kb (v :: vl))
+	    and pc (e, el, kb) = cvt (e, fn v => lc (el, fn vl => kb (v, vl)))
+	in pc (e, el, fn (v, vl) => `App (v, kv :: vl))
+	end
+
+    fun cvt_lam (tcvt, xl, e) =
+	withfresh (fn xk => `Lam (xk :: xl, tcvt (e, xk)))
+
+    fun vcvt_m (tcvt, kb) =
+	cases `Con i => kb (`Con i)
+            | `Var x => kb (`Var x)
+	    | `Lam (xl, e) => kb (cvt_lam (tcvt, xl, e))
+
+    fun cvt_m (cvt, tcvt, kb) =
+	cases `App (e, el) => cvt_app (cvt, e, el, kb2kv kb)
+        default: vcvt_m (tcvt, kb)
+
+    fun tcvt_m (cvt, tcvt, xk) =
+	cases `App (e, el) => cvt_app (cvt, e, el, `Var xk)
+        default: vcvt_m (tcvt, kv2kb (`Var xk))
+
+    fun mkConvert (cvt_m, tcvt_m, e) =
+	let fun cvt (e, kb) = match e with cvt_m (cvt, tcvt, kb)
+            and tcvt (e, xk) = match e with tcvt_m (cvt, tcvt, xk)
+	in cvt_lam (tcvt, [], e)
+	end
+
+    fun convert e = mkConvert (cvt_m, tcvt_m, e)
+
+    fun cvt_if (cvt, tcvt, c, t, e, xk) =
+	cvt (c, fn cv => `If (cv, tcvt (t, xk), tcvt (e, xk)))
+
+    fun cvti_m (cvt, tcvt, kb) =
+	cases `If (c, t, e) => withfresh (fn xk =>
+		 Let (xk, kb2kv kb, cvt_if (cvt, tcvt, c, t, e, xk)))
+        default: cvt_m (cvt, tcvt, kb)
+
+    fun tcvti_m (cvt, tcvt, xk) =
+	cases `If (c, t, e) => cvt_if (cvt, tcvt, c, t, e, xk)
+        default: tcvt_m (cvt, tcvt, xk)
+
+    fun convert_if e = mkConvert (cvti_m, tcvti_m, e)
+
+    fun cvt_lcc (tcvt, xc, e, xk) =
+	withfresh (fn xd => withfresh (fn xr =>
+	  Let (xc, `Lam ([xd, xr], `App (`Var xk, [`Var xr])), tcvt (e, xk))))
+
+    fun cvtc_m (cvt, tcvt, kb) =
+	cases `LetCC (xc, e) =>
+	        withfresh (fn xk => Let (xk, kb2kv kb,
+					 cvt_lcc (tcvt, xc, e, xk)))
+        default: cvt_m (cvt, tcvt, kb)
+
+    fun tcvtc_m (cvt, tcvt, xk) =
+	cases `LetCCC (xc, e) => cvt_lcc (tcvt, xc, e, xk)
+        default: tcvt_m (cvt, tcvt, xk)
+
+    fun convertc e = mkConvert (cvtc_m, tcvtc_m, e)
+
+    fun check e =
+	let fun ignore _ = ()
+	    fun int i = ignore (i+1)
+	    fun var v = int v
+	    fun app f l = case l of [] => () | h :: t => (f h; app f t)
+	in match e with
+             cases `Con i => int i
+                 | `Var v => var v
+		 | `Lam (xl, e) => (app var xl; check e)
+                 | `App (e, el) => (check e; app check el)
+                 | `If (e1, e2, e3) => (check e1; check e2; check e3)
+                 | `LetCC (x, e) => (var x; check e)
+	end
+
+    fun check_convert e = check (convert e)
+    fun check_convert_if e = check (convert_if e)
+    fun check_convertc e = check (convertc e)
+
+in 0
+end

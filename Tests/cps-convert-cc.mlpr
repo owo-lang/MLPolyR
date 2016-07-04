@@ -1,0 +1,116 @@
+let val n = {| i = 1000 |}
+    fun new f = let val i = n!i in n!i := i+1; f i end
+
+    fun app_cvt (cvt, e, el, kx) =
+	let fun lc (el, k) =
+		case el of [] => k []
+			 | e :: el => pc (e, el, fn (x, xl) => k (x :: xl))
+	    and pc (e, el, k) = cvt (e, fn x => lc (el, fn xl => k (x, xl)))
+	in pc (e, el, fn (x, xl) => `App (x, kx :: xl))
+	end
+
+    (* conversion match for values (anything but App) *)
+    fun value_cvt_m tail_cvt k =
+	cases `Const i => k (`Const i)
+            | `Var v => k (`Var v)
+	    | `Lam (vl, e) =>
+	        new (fn kv => k (`Lam (kv :: vl, tail_cvt (e, kv))))
+
+    fun app_cvt_m cvt k other =
+	cases `App (e, el) =>
+	        new (fn v => app_cvt (cvt, e, el, `Lam ([v], k (`Var v))))
+	default: other
+
+    fun app_cvt_t_m cvt kv other =
+	cases `App (e, el) => app_cvt (cvt, e, el, `Var kv)
+        default: other
+
+    fun kv2k kv x = `App (`Var kv, [x])
+
+    fun convert e =
+	let fun cvt (e, k) =
+		match e with app_cvt_m cvt k (value_cvt_m tail_cvt k)
+	    and tail_cvt (e, kv) =
+		match e with app_cvt_t_m cvt kv (value_cvt_m tail_cvt (kv2k kv))
+	in new (fn k0v => `Lam ([k0v], tail_cvt (e, k0v)))
+	end
+
+    fun lcc_cvt (tail_cvt, ccv, e, kv) =
+	new (fn dummyv => new (fn resv =>
+		`App (`Lam ([ccv], tail_cvt (e, kv)),
+		      [`Lam ([dummyv, resv],
+			     `App (`Var kv, [`Var resv]))])))
+
+    fun lcc_cvt_m tail_cvt k other =
+	cases `LetCC (ccv, e) =>
+	        new (fn kv => new (fn kresv =>
+		  `App (`Lam ([kv], lcc_cvt (tail_cvt, ccv, e, kv)),
+			[`Lam ([kresv], k (`Var kresv))])))
+        default: other
+
+    fun lcc_cvt_t_m tail_cvt kv other =
+	cases `LetCC (ccv, e) => lcc_cvt (tail_cvt, ccv, e, kv)
+        default: other
+
+    fun convert_lcc e =
+	let fun cvt (e, k) =
+		match e with app_cvt_m cvt k
+			(lcc_cvt_m tail_cvt k (value_cvt_m tail_cvt k))
+	    and tail_cvt (e, kv) =
+		match e with app_cvt_t_m cvt kv
+				(lcc_cvt_t_m tail_cvt kv
+					     (value_cvt_m tail_cvt (kv2k kv)))
+	in new (fn k0v => `Lam ([k0v], tail_cvt (e, k0v)))
+	end
+
+    fun out s = String.output s
+    fun var v = (out "x"; out (String.fromInt v))
+
+    (* print a list using f for elements: *)
+    fun list (f, xs) = case xs of [] => () | x :: xs => list_ne (f, x, xs)
+    (* print a non-empty list (head x, tail xs): *)
+    and list_ne (f, x, xs) =
+	(f x; case xs of [] => () | x :: xs => (out ","; list_ne (f, x, xs)))
+
+    (* match for printing values *)
+    fun print_value_m exp =
+        cases `Const i => out (String.fromInt i)
+            | `Var v => var v
+	    | `Lam (vl, e) => (out "\\("; list (var, vl); out ")."; exp e)
+
+    (* match for printing general expressions *)
+    fun print_exp_m { body, arg } =
+	cases `App (a, al) => (arg a; out "("; list (arg, al); out ")")
+        default: print_value_m body
+
+    (* printer for general lambda expressions *)
+    fun print e =
+	let fun exp e = match e with
+                 cases `LetCC (ccv, e) =>
+                         (out "letcc "; var ccv; out " in "; exp e ; out " end")
+                 default: print_exp_m { body = exp, arg = exp }
+	in exp e; out "\n"
+	end
+
+    (* printer for lambda expressions that satisfy CPS invariant *)
+    fun print_cps e =
+	let fun value x = match x with print_value_m exp
+            and exp e = match e with print_exp_m { body = exp, arg = value }
+	in value e; out "\n"
+	end
+
+    (* test case: *)
+    val e = `Lam ([0,1,2], `App (`Var 0, [`App (`Var 1, [`Var 2])]))
+    val ecc = `LetCC (0, `App (`Var 0, [`Const 10]))
+in print e;
+   print (convert e);
+   print_cps (convert e);
+   print ecc;
+   print (convert_lcc ecc);
+   print_cps (convert_lcc ecc);
+(* These would be type errors:
+   print_cps e;
+   print_cps ecc;
+*)
+   0
+end

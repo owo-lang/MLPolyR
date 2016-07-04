@@ -1,0 +1,3 @@
+let fun remove_a `{ a, ... = rest } = rest
+in 0
+end

@@ -1,0 +1,12 @@
+let fun print l = String.output (String.concat l)
+    fun show what x = (print ["show: ", what, "\n"]; x)
+    fun f r =
+	let val { a, b, c, d } =
+		{ a = show "a" 1, ... = show "..." r, c = show "c" 2 }
+	in (a, b, c, d)
+	end
+    val (a, b, c, d) = f { b = 3, d = 4 }
+    fun i2s i = String.fromInt i
+in print [i2s a, " ", i2s b, " ", i2s c, " ", i2s d, "\n"];
+   0
+end

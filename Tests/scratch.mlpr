@@ -1,0 +1,35 @@
+let val n = {| i = 1000 |}
+    fun withfresh f = let val i = n!i in n!i := i+1; f i end
+
+    (* ---- utilities ---- *)
+
+    fun Let (x, e1, e2) = `App (`Lam ([x], e2), [e1])
+    fun kv2kb kv = fn v => `App (kv, [v])
+    fun kb2kv kb = withfresh (fn rx => `Lam ([rx], kb (`Var rx)))
+
+    fun cvt_app (e, el, kv) =
+	let fun lc (el, kb) =
+		case el of [] => kb []
+			 | e :: el => pc (e, el, fn (v, vl) => kb (v :: vl))
+	    and pc (e, el, kb) = cvt (e, fn v => lc (el, fn vl => kb (v, vl)))
+	in pc (e, el, fn (v, vl) => `App (v, kv :: vl))
+	end
+
+    and cvt_lam (xl, e) =
+	withfresh (fn xk => `Lam (xk :: xl, tcvt (e, xk)))
+
+    and cvt (e, kb) = match e with
+	cases `Const i => kb (`Const i)
+            | `Var x => kb (`Var x)
+	    | `Lam (xl, e) => kb (cvt_lam (xl, e))
+	    | `App (e, el) => cvt_app (e, el, kb2kv kb)
+
+    and tcvt (e, kx) = match e with
+	cases `Const i => `App(`Var kx, [`Const i])
+            | `Var x => `App(`Var kx, [`Var x])
+	    | `Lam (xl, e) => `App (`Var kx, [cvt_lam (xl, e)])
+	    | `App (e, el) => cvt_app (e, el, `Var kx)
+
+    fun convert e = cvt_lam ([], e)
+in 0
+end

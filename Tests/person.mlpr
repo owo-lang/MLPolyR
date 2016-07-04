@@ -1,0 +1,21 @@
+let fun eq (s1, s2) = String.compare (s1, s2) == 0
+
+    fun identify p =
+	if eq (p.first, "Matthias") andalso eq (p.last, "Blume") then
+	    "that is me!\n"
+	else String.concat ["a ", if p.male then "" else "fe",
+			    "male person named ",
+			    p.first, " ", p.last, " whose weight is ",
+			    String.fromInt p.weight, " pounds\n"]
+
+    fun identify_twice p =
+	String.concat [identify p, "and again: ", identify p]
+
+    val matthias = { first = "Matthias", last = "Blume",
+		     weight = 180, male = true }
+    val mayu = { first = "Mayu", last = "Shimizu", weight = 9, male = false,
+		 age = 0 }
+in String.output (identify matthias);
+   String.output (identify_twice mayu);
+   0
+end

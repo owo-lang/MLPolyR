@@ -1,0 +1,13 @@
+let fun g l =
+	case l of [] => 0
+                | (h,x)::t => if h<0 then raise x else g t
+
+    fun f () =
+	try r = g [(1,`A()),(2,`B 5),(3,`C true)]
+        in r
+	handling `A () => 0
+               | `B i => i+1
+	       | `C b => if b then 0 else 1
+	end
+in f ()
+end

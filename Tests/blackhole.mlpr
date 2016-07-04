@@ -1,0 +1,11 @@
+let fun mkConvert (c, e) =
+	let fun cvt e = match e with cc
+            with cases cc = c cvt
+        in cvt e
+        end
+    fun ignore x = ()
+in
+    ignore (mkConvert (fn cvt => (ignore (cvt (`A ())); cases `A () => "A"), `A ()));
+   0
+end
+

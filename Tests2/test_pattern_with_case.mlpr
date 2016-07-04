@@ -1,0 +1,61 @@
+let (* basic library *)
+	fun print x = (String.output (String.fromInt x))
+	fun println x = (String.output (String.fromInt x); String.output ("\n"))
+	fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n")
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+	fun s2i x = String.toInt x
+	fun i2s x = String.fromInt x
+	fun pnum x = (String.output (i2s x); String.output ("\n"))
+
+	(* testcase 1 *)
+	fun sumpair l =
+        case l of
+          [] => 0
+        | (_,y) :: t => y + sumpair t
+
+	fun makepair l =
+        case l of
+          [] => [(0,0)]
+        | h :: t =>  
+                   (h, h) :: makepair t
+
+	(* test case 2 *)
+	fun sumrec l =
+        case l of
+          [] => 0
+        | {x=a, y=_} :: t => 
+                        a + sumrec t
+
+	fun makerec l =
+        case l of
+          [] => [{x=0, y=0}]
+        | h :: t =>  
+         {x= h, y = h} :: makerec t
+
+	(* test case 3 *)
+	fun calc l =
+		case l of
+		  [] => 0 
+		| (_,{x=_,y=(a,b)},z) :: t => a + calc t 
+
+	fun build l =
+		case l of
+		  [] => [(0,{x=0,y=(0,0)},0)]
+		| h :: t => (h,{x=h*1,y=(h*2,h*3)},h*4) :: build t
+
+	fun run _ = (
+		(* simple tuple case *)
+		assert (1, sumpair (makepair [1,2,3]), 6);
+
+		(* simple record case *)
+		assert (2, sumrec (makerec [1,2,3]), 6);
+
+		(* nested case *)
+		assert (3, calc (build [1,2,3]), 12)
+	)
+
+in (run ();0)
+end

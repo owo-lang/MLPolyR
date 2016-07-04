@@ -1,0 +1,249 @@
+\documentclass{article}
+
+\title{{\bf MLPolyR} \\
+A (mini-)ML with type inference, polymorphic records, and functional record update }
+
+\author{by Matthias Blume \\
+for CMSC 22620/23620, Spring 2005 \\
+{\small Department of Computer Science, University of Chicago} \\
+{\tiny and} \\
+{\small Toyota Technological Institute at Chicago}}
+
+\date{}
+
+\usepackage{latexsym}
+\usepackage{times}
+
+\newcommand{\nt}[1]{{\it #1}}
+\newcommand{\tl}[1]{{\underline{\bf #1}}}
+\newcommand{\nutl}[1]{{\bf #1}}
+\newcommand{\ttl}[1]{{\underline{\tt #1}}}
+%\newcommand{\tl}[1]{{\bf #1}}
+%\newcommand{\ttl}[1]{{\tt #1}}
+\newcommand{\ar}{$\rightarrow$\ }
+\newcommand{\vb}{~$|$~}
+\newcommand{\ntl}{$\hookleftarrow$ }
+
+\newcommand{\seq}[1]{{#1}$^{*}$}
+\newcommand{\opt}[1]{{#1}$_{\mathrm{opt}}$}
+
+\begin{document}
+
+\maketitle
+
+\section{Syntax}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{rcl}
+\nt{program}       &\ar& \seq{\nt{functions}} \nt{mainfun} \\
+\nt{functions}     &\ar& \tl{fun} \nt{fundecl} \seq{(\tl{and} \nt{fundecl})} \\
+\nt{fundecl}       &\ar& \nt{name} \nt{formals} \ttl{=} \nt{exp} \\
+\nt{formals}       &\ar& \nt{varpat}
+                     \vb \tl{(} \opt{(\nt{varpat}
+                                      \seq{(\nutl{,} \nt{varpat})})}
+                         \tl{)} \\
+\nt{varpat}        &\ar& \nutl{\_} \vb \nt{name} \\
+\nt{exp}           &\ar& \tl{let} \nt{varpat} \ttl{=} \nt{exp}
+                         \tl{in} \nt{exp} \\
+                   &\vb& \nt{functions} \tl{in} \nt{exp} \\
+                   &\vb& \tl{if} \nt{exp} \tl{then} \nt{exp}
+                                          \tl{else} \nt{exp} \\
+                   &\vb& \tl{case} \nt{exp} \tl{of} \nt{match} \\
+                   &\vb& \nt{exp} \tl{with} \nt{recordexp} \\
+                   &\vb& \nt{exp} \tl{where} \nt{recordexp} \\
+                   &\vb& \nt{exp} \nt{binconn} \nt{exp} \\
+                   &\vb& \nt{exp} \nt{exp} \\
+                   &\vb& \nt{unaryop} \nt{exp} \\
+                   &\vb& \nt{exp} \nutl{.} \nt{label} \\
+                   &\vb& \nt{exp} \ttl{!} \nt{label} \\
+                   &\vb& \nt{exp} \ttl{!} \nt{label} \ttl{:=} \nt{exp} \\
+                   &\vb& \nt{name} \\
+                   &\vb& \tl{true} \vb \tl{false} \vb
+                         \nt{integer} \vb \nt{string} \\
+                   &\vb& \tl{(} \tl{)} \\
+                   &\vb& \tl{(} \nt{exp} \tl{)} \\
+                   &\vb& \tl{(} \nt{exp} \nutl{,} \nt{exp}
+                                \seq{(\nutl{,} \nt{exp})} \tl{)} \\
+                   &\vb& \tl{(} \nt{exp} \nutl{;} \nt{exp}
+                                \seq{(\nutl{;} \nt{exp})} \tl{)} \\
+                   &\vb& \tl{[} \opt{(\nt{exp} \seq{(\nutl{,} \nt{exp})})}
+                         \tl{]} \\
+                   &\vb& \nt{recordexp} \\
+\nt{match}         &\ar& \nt{nilcase} \ttl{|} \nt{conscase} \\
+                   &\vb& \nt{conscase} \ttl{|} \nt{nilcase} \\
+\nt{nilcase}       &\ar& \tl{[} \tl{]} \ttl{=>} \nt{exp} \\
+\nt{conscase}      &\ar& \nt{varpat} \ttl{::} \nt{varpat} \ttl{=>} \nt{exp} \\
+\nt{binconn}       &\ar& \nt{boolconn} \vb \nt{cmpop} \vb
+                         \nt{arithop} \vb \ttl{::} \\
+\nt{boolconn}      &\ar& \tl{andalso} \vb \tl{orelse} \\
+\nt{cmpop}         &\ar& \ttl{==} \vb \ttl{>} \vb \ttl{>=} \vb
+                         \ttl{<>} \vb \ttl{<} \vb \ttl{<=} \\
+\nt{arithop}       &\ar& \ttl{+} \vb \ttl{-} \vb \ttl{*} \vb
+                         \ttl{/} \vb \ttl{\%} \\
+\nt{unaryop}       &\ar& \ttl{-} \vb \tl{isnull} \vb
+                         \tl{hd} \vb \tl{tl} \vb \tl{not} \\
+\nt{label}         &\ar& \nt{name} \vb \nt{integer} \\
+\nt{recordexp}     &\ar& \tl{\{} \opt{(\nt{fieldexp}
+                                       \seq{(\nutl{,} \nt{fieldexp})})}
+                         \tl{\}} \\
+\nt{fieldexp}      &\ar& \nt{name} \ttl{=} \nt{exp} \vb
+                         \nt{name} \ttl{:=} \nt{exp} \\
+\nt{mainfun}       &\ar& \tl{fun} \nutl{main}
+                                \tl{(} \nt{varpat} \nutl{,} \nt{varpat} \tl{)}
+                         \ttl{=} \nt{exp} \\
+\nt{name}          &\ar& \ldots \\
+\nt{integer}       &\ar& \ldots \\
+\nt{string}        &\ar& \nutl{"}\ldots\nutl{"}
+\end{tabular}
+\end{center}
+\caption{Syntax of {\bf MLPolyR}}
+\label{fig:syntax}
+\end{figure}
+
+Figure~\ref{fig:syntax} shows the syntax of MLPolyR in EBNF.  Notice
+that this grammar, as written, is highly ambiguous.
+
+\section{Type inference, record polymorphism, and functional record update}
+
+The language has no type declarations or type annotations; all types
+are inferred by a Hindley-Milner-style type inference engine that is
+part of the type checker.
+
+Unlike Standard ML, the language incorporates Ohori-style {\em record
+  polymorphism}.  This means that, for example, the following function
+{\tt addab} can subsequently be applied to any record argument as long
+as it has immutable integer fields {\tt a} and {\tt b}:
+
+\begin{verbatim}
+    fun addab r = r.a + r.b
+    in
+       addab { a = 5, b = 7, c = "hello" } -
+       addab { b = 23, a = 0 } *
+       addab { z = 1, a = 22, y = 15, b = -1, x = 4 }
+
+\end{verbatim}
+
+Record fields can be mutable.  Field expressions for mutable fields
+use {\tt :=} instead of {\tt =} between label and expression. Access
+to the contents of mutable fields is done using {\bf !} in place of
+the usual selection operator for immutable fields ({\bf .}).
+
+The language offers two functional record update operators: {\bf with}
+and {\bf where}.  The former strictly extends a given record (the
+left-hand side expression) with fields which had not been present,
+while the latter strictly replaces existing fields with new fields.
+Either form of functional record update creates a brand-new record.
+There is no sharing between fields of the old and the new record;
+mutable fields are ``cloned.''
+
+Record labels can be small positive integers.  A {\em tuple} is a
+special case of a record where the labels form an initial segment of
+the positive integers.  The tuple syntax $(e_1,\ldots,e_k)$ is equivalent to
+the record syntax $\{ 1 = e_1, \ldots, k = e_k \}$.
+
+The {\bf let}-bound variables and {\bf fun}-defined functions are
+given polymorphic types within the respective body expression (after
+{\bf in}).  The {\em value restriction} that you perhaps are familiar
+with from Standard ML applies: a {\bf let}-bound variable's type is
+not generalized if the right-hand side of the binding is not a {\em
+  syntactic value}.  Similarly, row types (record types where not all
+fields are known) are generalized only if the record type in question
+has not been involved in any functional record update ({\bf with} or
+{\bf where}).  The following code will not pass the type checker since
+{\tt augmentc} is not polymorphic in {\tt r}'s row type:
+
+\begin{verbatim}
+    fun augmentc (r, x) = r with { c = x }
+    in (augmentc ({ a = 1 }, 8), augmentc ({ b = 2 }, 9))
+
+\end{verbatim}
+
+However, the function still {\em is} polymorphic in {\tt x}, which
+means that this code is ok:
+
+\begin{verbatim}
+    fun augmentc (r, x) = r with { c = x }
+    in (augmentc ({ a = 1 }, 8), augmentc ({ a = 2 }, "a string"))
+
+\end{verbatim}
+
+\section{Expressions}
+
+\begin{description}
+
+\item[literal data]  MLPolyR programs can use the following constants:
+  \begin{description}
+  \item[boolean] \tl{true}, \tl{false}
+  \item[numerical] \nt{integer}
+  \item[string] \nt{string}
+  \item[unit] \tl{(} \tl{)}   --- the record/tuple with no fields
+  \item[lists] \tl{[} \ldots \tl{]}
+  \item[records] \tl{\{} \ldots \tl{\}}
+  \item[tuples] \tl{(} \ldots \tl{)}
+  \end{description}
+  
+\item[identifiers] Identifiers (\nt{name}) in MLPolyR name values, not
+  locations.  They are not mutable.  The only form of assignment is
+  update of mutable record fields.
+  
+\item[binary operations] In general, binary operations have the form
+  $e_1 \otimes e_2$ where $\otimes$ is one of:
+  \begin{itemize}
+  \item {\it short-circuiting logical or:} \tl{orelse} --- boolean arguments
+    and results
+  \item {\it short-circuiting logical and:} \tl{andalso} --- boolean arguments
+    and results
+  \item {\it comparisons:} \ttl{==} \ttl{<>} \ttl{<} \ttl{>} \ttl{<=}
+                           \ttl{>=} --- integer operands, boolean result
+  \item {\it list cons:} \ttl{::} --- element and list operands, list result
+  \item {\it addition and subtraction:} \ttl{+} \ttl{-} --- integer
+    operands and result
+  \item {\it multiplication and division:} \ttl{*} \ttl{/} \ttl{\%}
+        --- integer operands and result
+  \end{itemize}
+
+  \noindent These operators are listed in order of increasing precedence.
+
+\item[unary operations] There are five unary operations:
+  \begin{itemize}
+  \item {\it boolean negation:} \tl{not} $e$ --- boolean argument,
+    boolean result
+  \item {\it arithmetic negation:} \ttl{-} $e$ --- integer argument,
+    integer result
+  \item {\it empty list test:} \tl{isnull} $e$ --- list argument, boolean result
+  \item {\it list head:} \tl{hd} $e$ --- list argument, element result
+  \item {\it list tail:} \tl{tl} $e$ --- list argument, list result
+  \end{itemize}
+  
+\item[conditional expression] An \tl{if} expression evaluates its
+  boolean condition and depending on the outcome proceeds to evaluate
+  either the \tl{then} branch or the \tl{else} branch.  The expression
+  that is not needed does not get evaluated.  Notice that $e_1$
+  \tl{andalso} $e_2$ and $e_1$ \tl{orelse} $e_2$ are equivalent to
+  \tl{if} $e_1$ \tl{then} $e_2$ \tl{else} \tl{false} and \tl{if} $e_1$
+  \tl{then} \tl{true} \tl{else} $e_2$, respectively.
+   
+\end{description}
+
+\section{Built-in functions}
+
+MLPolyR programs are compiled in a global environment containing
+a binding for the following record value:
+
+\begin{verbatim}
+  val String : { toInt     : string -> int,
+                 fromInt   : int -> string,
+                 inputLine : () -> string,
+                 size      : string -> int,
+                 output    : string -> (),
+                 sub       : string * int -> int,
+                 concat    : string list -> string,
+                 substring : string * int * int -> string,
+                 compare   : string * string -> int }
+\end{verbatim}
+
+The elements of this record can be used to perform simple I/O tasks and
+string manipulation.
+
+\end{document}

@@ -1,0 +1,7 @@
+let fun f (g, x) = (g x; g x)
+
+    fun h s = String.output (String.concat [s, "\n"])
+
+in f (h, "foo");
+   0
+end

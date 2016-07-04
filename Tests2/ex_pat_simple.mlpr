@@ -1,0 +1,11 @@
+let fun i2s x = String.fromInt x
+    fun print x = String.output (i2s x)
+    fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n") 
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+    fun f {x=a, ...=c} = c (* SEL (r,1,3) *)
+    fun g x = let val {y=a, ...=c} = f x in a end (* SEL (r,1,2) *)
+in (assert (1,  g {x=true, y=5, z=[]}, 5);0)
+end

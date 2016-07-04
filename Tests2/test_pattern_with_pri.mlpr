@@ -1,0 +1,55 @@
+let (* basic library *)
+	fun print x = (String.output (String.fromInt x))
+	fun println x = (String.output (String.fromInt x); String.output ("\n"))
+	fun assert (id, x, y) =
+        if x == y
+        then (String.output "#"; print id; String.output " is right."; String.output "\n")
+        else (String.output "#"; print id; String.output " is wrong."; String.output "\n")
+
+	fun s2i x = String.toInt x
+	fun i2s x = String.fromInt x
+	fun pnum x = (String.output (i2s x); String.output ("\n"))
+
+	(* test case 0 - original *)
+	fun test0 x =
+        let val a = let fun f x = x.x in f end 
+		in a x
+		end
+
+	(* test case 1 - simle case / tuple *)
+	fun test1 x =
+        let val (a,b) = (let fun f x = x.x in f end, let fun g x = x.y in g end)
+        in a x + b x
+		end
+
+	(* test case 2 - nested case / tuple *)
+	fun test2 x =
+		let val ((a,b),c) = ((let fun f x = x.x in f end, let fun g x = x.y in g end), 
+							let fun i x = x.z in i end) 
+		in a x + b x + c x 
+		end
+
+	(* test case 3 - redundant case / tuple *)
+	fun test3 x =
+		let val (a,b) = (let fun f x = x.x in f end, let fun g x = 5 in g end) 
+		in a x + b x
+		end
+
+	fun run _ = (
+		(* original case *)
+		assert (0, test0 {x=1, y="hello"}, 1);
+
+		(* simple case *)
+		assert (1, test1 {x=1, y=2}, 3);
+
+		(* nested case *)
+		assert (2, test2 {x=1, y=2, z=3}, 6);
+	
+		(* redundant case *)
+		assert (3, test3 {x=1, y=2, z=3}, 6)
+	)
+
+in (run (); 0)
+end
+
+
