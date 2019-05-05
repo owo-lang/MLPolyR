@@ -41,10 +41,10 @@ end = struct
 		  false)
 
 	fun assemble (asmfile, objfile) =
-	    system (concat ["as -arch ppc -o ", objfile, " ", asmfile])
+	    system (concat ["as -o ", objfile, " ", asmfile])
 
 	fun link (objfile, executable) =
-	    system (concat ["cc -arch ppc -o ", executable, " ",
+	    system (concat ["cc -o ", executable, " ",
 			    objfile, " ", rts])
 
 	fun onefile (flags, state, target, file) = let
