@@ -36,7 +36,7 @@ struct cons {
   void *cdr;
 };
 
-static int dprintf (const char *fmt, ...)
+static int iprintf (const char *fmt, ...)
 {
   va_list ap;
   va_start (ap, fmt);
@@ -288,7 +288,7 @@ unsigned mlpr_gc (unsigned amount, unsigned ap, unsigned *limit_ptr,
   unsigned size;
   unsigned sz_upper;
 
-  dprintf("GC!\n");
+  iprintf("GC!\n");
 
   alloc_ptr = to_space_ptr;
   limit_ptr = to_space_ptr + HEAPSIZE;
@@ -298,7 +298,7 @@ unsigned mlpr_gc (unsigned amount, unsigned ap, unsigned *limit_ptr,
   size = previous - cursor; 
   sz_upper = 17;
   forward_frame_roots (previous - sz_upper, previous);
-  dprintf ("curser = %p, size = %d, sz_upper = %d\n", cursor, size, sz_upper);
+  iprintf ("curser = %p, size = %d, sz_upper = %d\n", cursor, size, sz_upper);
   cursor = previous;
 
   // handle other frames
@@ -308,13 +308,13 @@ unsigned mlpr_gc (unsigned amount, unsigned ap, unsigned *limit_ptr,
     raddress = *(cursor + 2);
     sz_upper = get_sz_upper (raddress);
     forward_frame_roots (previous - sz_upper, previous);
-    dprintf ("curser = %p, size = %d, sz_upper = %d\n", cursor, size, sz_upper);
+    iprintf ("curser = %p, size = %d, sz_upper = %d\n", cursor, size, sz_upper);
     cursor = previous;
   }  
 
-  dprintf("scanning...");
+  iprintf("scanning...");
   scan();
-  dprintf("done\n");
+  iprintf("done\n");
 
   {
     unsigned *temp = from_space_ptr;
@@ -330,7 +330,7 @@ unsigned mlpr_gc (unsigned amount, unsigned ap, unsigned *limit_ptr,
 
   mlpr_limit_ptr = limit_ptr;
 
-  dprintf("GC done\n");
+  iprintf("GC done\n");
   return (unsigned) alloc_ptr;
 }
 
