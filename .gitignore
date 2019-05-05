@@ -1,0 +1,19 @@
+# Editor config directories
+.cm
+.idea
+.vscode
+.vs
+
+# Generated
+mlpolyr.grm.desc
+mlpolyr.grm.sig
+mlpolyr.grm.sml
+mlpolyr.lex.sml
+mlpolyr.x86-linux
+
+# Binaries
+*.o
+*.exe
+*.dll
+*.so
+*.dylib
