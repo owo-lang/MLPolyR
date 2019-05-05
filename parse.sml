@@ -22,7 +22,7 @@ end = struct
 	let val _ = LVar.reset ()
 	    val _ = Label.reset ()
 	    val file = TextIO.openIn filename
-	    val source = Source.newSource (filename, 1, file, false, errcons)
+	    val source = Source.newSource (filename, file, false, errcons)
 	    val sm = #sourceMap source
 	    fun error r m =
 		ErrorMsg.error source r ErrorMsg.COMPLAIN m
