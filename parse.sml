@@ -41,7 +41,7 @@ end = struct
 			   (String.implode (rev (!curstring)), !startpos, ep))
 
 	    fun handleEof () = let
-		val pos = SourceMap.lastChange sm
+		val pos = SourceMap.lastLinePos sm
 	    in if !depth > 0 then
 		   error (pos, pos) "unexpected end of input in comment"
 	       else if !instring then
