@@ -1,0 +1,19 @@
+# MLPolyR
+
+Actually I don't know well about what is this. :)
+
+Seems to be a polymorphic ML.
+
+## how to build
+
+Install SML/NJ, tested with v110.75 on Linux, make sure it has ML-lex
+
+```
+make
+```
+
+and that's it
+
+## how to use 
+
+a PDF manual is in doc/
