@@ -54,7 +54,7 @@ end = struct
 		(pr "\n";
 		 indentation ();
 		 case e of
-		     A.VALUES xl => (print "return "; list pr value xl)
+		     A.VALUES xl => (pr "return "; list pr value xl)
 		   | A.BIND (v, x, e) =>
 	               (var v; ar (); value x; exp e)
 		   | A.CALL (p, vl, (x, xl), e) =>
@@ -62,7 +62,7 @@ end = struct
 			value x; pr "("; list pr value xl; pr ")";
 			exp e)
 		   | A.FIX (fl, e) =>
-	               (print "fix\n";
+	               (pr "fix\n";
 			app (function0 (indent+1) pr) fl;
 			indentation ();
 			pr "in";
