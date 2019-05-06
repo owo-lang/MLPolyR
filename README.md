@@ -16,11 +16,12 @@ and that's it.
 
 ## Usage
 
-a PDF manual is in `doc/`.
+A LaTeXed PDF manual is in `doc/`, which is excatly the same as [language spec][spec]
 
-There are also a [language spec][spec], a [paper][fc-c] and a [PhD thesis][tse] about MLPolyR.
+There are also a [compiler overview][c--], a [paper][fc-c] and a [PhD thesis][tse] about MLPolyR.
 
  [spec]: https://people.cs.uchicago.edu/~blume/classes/spr2005/cmsc22620/docs/langspec.pdf
+ [c--]: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.210.2810&rep=rep1&type=pdf
  [tse]: https://arxiv.org/abs/0910.2654
  [fc-c]: https://people.cs.uchicago.edu/~blume/papers/icfp06.pdf
 
