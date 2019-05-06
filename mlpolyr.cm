@@ -17,6 +17,7 @@ Library
 	structure Lambda
 	structure Translate
 	structure ANF
+	structure PrintANF
 	structure LambdaToANF
 	structure ANFOpt
 	structure Closed
