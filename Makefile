@@ -1,4 +1,4 @@
-all: runtime compiler
+all: compiler
 	@echo all done
 
 runtime:
