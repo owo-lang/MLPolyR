@@ -14,6 +14,7 @@ Library
 	structure Absyn
 	structure Elaborate
 	structure Parse
+	structure LVar
 	structure Lambda
 	structure Translate
 	structure ANF
@@ -35,6 +36,9 @@ Library
 	structure PPCCodeGen
 	structure ExternalAccess
 	structure BaseEnv
+
+	structure Flatten
+	structure Uncurry
 
 	structure LambdaInterpreter
 	structure ANFInterpreter
