@@ -23,3 +23,10 @@ There are also a [language spec][spec], a [paper][fc-c] and a [PhD thesis][tse] 
  [spec]: https://people.cs.uchicago.edu/~blume/classes/spr2005/cmsc22620/docs/langspec.pdf
  [tse]: https://arxiv.org/abs/0910.2654
  [fc-c]: https://people.cs.uchicago.edu/~blume/papers/icfp06.pdf
+ 
+ ## Current State
+ 
+It builds and produce PPC assembly code, which cause failure upon linking pharse.
+
+Call `mlpolyrc` with ommand line switch `-S` emits assembly code without linking, which is a viable option if you
+only want typechecking programs. Other switches all requires linking.
