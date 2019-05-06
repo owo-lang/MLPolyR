@@ -30,3 +30,5 @@ It builds and produce PPC assembly code, which cause failure upon linking pharse
 
 Call `mlpolyrc` with ommand line switch `-S` emits assembly code without linking, which is a viable option if you
 only want typechecking programs. Other switches all requires linking.
+
+Now you can call with `-t` to typecheck only without doing codegen.
