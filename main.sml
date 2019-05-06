@@ -14,12 +14,20 @@ structure Main : sig
 
 end = struct
 
-    datatype state = ToAsm | ToObj | ToExe
+    datatype state = ToAsm | ToTC | ToObj | ToExe
 
     val rts = "rt/mlpr-rt.o"
 
     fun remove file =
 	OS.FileSys.remove file handle _ => ()
+
+    fun typecheck { pclust, pbbt, pigraph, no_ra, pdefs } file =
+	let val (ast, source) = Parse.parse file
+	in if ErrorMsg.anyErrors (ErrorMsg.errors source) then false
+	   else let val absyn = Elaborate.elaborate (source, BaseEnv.elabBase, pdefs) ast
+		in true
+		end
+	end
 
     fun compile cflags (file, asmfile) =
 	let val (ast, source) = Parse.parse file
@@ -58,6 +66,7 @@ end = struct
 		  | _ => aoe file
 	in case state of
 	       ToAsm => compile flags (file, getOpt (target, asmfile))
+	     | ToTC => typecheck flags file
 	     | ToObj =>
 	         ((compile flags (file, asmfile) andalso
 		   assemble (asmfile, getOpt (target, objfile)))
@@ -96,6 +105,8 @@ end = struct
 	       OS.Process.failure)
 	  | process (flags, _, target, "-S" :: rest) =
 	      process (flags, ToAsm, target, rest)
+	  | process (flags, _, target, "-t" :: rest) =
+	      process (flags, ToTC, target, rest)
 	  | process (flags, _, target, "-c" :: rest) =
 	      process (flags, ToObj, target, rest)
 	  | process (flags, state, target, "-PC" :: rest) =
