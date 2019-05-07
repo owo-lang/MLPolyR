@@ -88,6 +88,7 @@ is
 
 	lambda-interpreter.sml
 	anf-interpreter.sml
+	interp.sml
 
 	closed.sml
 	closure.sml

@@ -36,4 +36,7 @@ It builds and produce PPC assembly code, which cause failure upon linking phase.
 Call `mlpolyrc` with command line switch `-S` emits assembly code without linking, which is a viable option if you
 only want typechecking programs. Other switches all requires linking.
 
-Now you can call with `-t` to typecheck only without doing codegen.
+Now you can call with `-t` to typecheck without doing codegen.
+
+Now you use `-e` to eval. However, I/O operation is not yet supported, which means
+all you can do is integer arith stuff.

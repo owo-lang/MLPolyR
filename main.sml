@@ -24,8 +24,19 @@ end = struct
     fun typecheck { pclust, pbbt, pigraph, no_ra, pdefs } file =
 	let val (ast, source) = Parse.parse file
 	in if ErrorMsg.anyErrors (ErrorMsg.errors source) then false
-	   else let val absyn = Elaborate.elaborate (source, BaseEnv.elabBase, pdefs) ast
-		in true
+	   else let val asyn = Elaborate.elaborate
+				   (source, BaseEnv.elabBase, pdefs) ast
+		in if pclust then
+		       let val { lambda, strings = _} =
+			       Translate.translate (asyn, BaseEnv.transBase)
+			   val res = LambdaInterpreter.eval
+					 Interpreter.runtime
+					 (Interpreter.makeProgram lambda)
+			   val _ = Interpreter.printResult res
+		       in
+			   true
+		       end
+		   else true
 		end
 	end
 
@@ -106,7 +117,9 @@ end = struct
 	  | process (flags, _, target, "-S" :: rest) =
 	      process (flags, ToAsm, target, rest)
 	  | process (flags, _, target, "-t" :: rest) =
-	      process (flags, ToTC, target, rest)
+	    process (flags, ToTC, target, rest)
+	  | process (flags, _, target, "-e" :: rest) =
+	      process (setPC flags, ToTC, target, rest)
 	  | process (flags, _, target, "-c" :: rest) =
 	      process (flags, ToObj, target, rest)
 	  | process (flags, state, target, "-PC" :: rest) =
