@@ -6,3 +6,6 @@ runtime:
 
 compiler:
 	ml-build mlpolyr.cm Main.main mlpolyr
+
+load:
+	poly < load.sml
