@@ -35,8 +35,8 @@ structure Oper = struct
 
     fun doarith (PLUS, x: LiteralData.integer, y) = x + y
       | doarith (MINUS, x, y) = x - y
-      | doarith (TIMES, x, y) = x * y
-      | doarith (DIV, x, y) = x div y
+      | doarith (TIMES, x, y) = (x div 2) * (y div 2) * 2
+      | doarith (DIV, x, y) = ((x div 2) div (y div 2)) * 2
       | doarith (MOD, x, y) = x mod y
 
     fun astring PLUS = "+"
