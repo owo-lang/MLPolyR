@@ -16,16 +16,20 @@ and that's it.
 
 ## Usage
 
-A LaTeXed PDF manual is in `doc/`, which is excatly the same as [language spec][spec]
+There's a LaTeXed PDF manual is in `doc/`, which is excatly the same as [language spec][spec].
 
-There are also a [compiler overview][c--], a [paper][fc-c] and a [PhD thesis][tse] about MLPolyR.
+There are also a [compiler overview][c--], a [paper][fc-c], and a [PhD thesis][tse] about MLPolyR.
 
  [spec]: https://people.cs.uchicago.edu/~blume/classes/spr2005/cmsc22620/docs/langspec.pdf
  [c--]: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.210.2810&rep=rep1&type=pdf
  [tse]: https://arxiv.org/abs/0910.2654
  [fc-c]: https://people.cs.uchicago.edu/~blume/papers/icfp06.pdf
 
- ## Current Status
+For code editing, we've created an [IntelliJ plugin][ij-p] for MLPolyR.
+
+ [ij-p]: https://github.com/owo-lang/intellij-dtlc
+
+## Current Status
 
 It builds and produce PPC assembly code, which cause failure upon linking phase.
 
