@@ -23,7 +23,11 @@ val source =
 
      "ast",
      "anf",
-     "anf-interpreter"
+     "anf-interpreter",
+     "lambda2anf",
+     "pranf",
+     "tvar",
+     "types"
     ]
 
 val () = List.app use source;

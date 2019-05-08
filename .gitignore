@@ -10,6 +10,7 @@ mlpolyr.grm.sig
 mlpolyr.grm.sml
 mlpolyr.lex.sml
 mlpolyr.x86-linux
+util/ml-lex/ml-lex
 
 # misc
 check
