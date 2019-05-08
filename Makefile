@@ -9,3 +9,6 @@ compiler:
 
 load:
 	poly < load.sml
+
+check:
+	polyc -o check load.sml	

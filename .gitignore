@@ -11,6 +11,9 @@ mlpolyr.grm.sml
 mlpolyr.lex.sml
 mlpolyr.x86-linux
 
+# misc
+check
+
 # Binaries
 *.o
 *.exe

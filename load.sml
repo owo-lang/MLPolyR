@@ -1,3 +1,4 @@
+local
 val source = ["litdata",
               "machspec",
 
@@ -22,4 +23,10 @@ val source = ["litdata",
 
               "ast"]
 
+in
+
 val _ = List.app use source
+
+end
+
+fun main() = print "Check!\n"
