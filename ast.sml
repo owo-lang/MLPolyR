@@ -81,13 +81,13 @@ structure Ast = struct
       | MARKpat of pat * region
 
     withtype 'a field = (* NONE means "..." *)
-	mlabel option * 'a
+	       mlabel option * 'a
 
     and lambda = pat * exp
 
-    and dtmatch = { nilcase: exp, conscase: pat * pat * exp }
+    and mrule = mlabel * (pat * exp) (* lambda *) * region
 
-    and mrule = mlabel * lambda * region
+    and dtmatch = { nilcase: exp, conscase: pat * pat * exp }
 
     type program = exp * region
 

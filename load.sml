@@ -1,16 +1,25 @@
-use "litdata";
-use "machspec";
+val source = ["litdata",
+              "machspec",
 
-use "oper";
+              "oper",
 
-use "purity";
+              "purity",
 
-use "notyet";
+              "notyet",
 
-use "util/poly_smlnj-lib";
+              "util/poly_smlnj-lib",
 
-use "symbol";
+              "symbol",
 
-use "util/errormsg/errormsg.sml";
+              "util/errormsg/errormsg.sml",
 
-use "lvar";
+              "lvar",
+              "label",
+              "lambda",
+              "lambda-interpreter",
+
+              "reclab",
+
+              "ast"]
+
+val _ = List.app use source
