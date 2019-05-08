@@ -10,3 +10,7 @@ use "notyet";
 use "util/poly_smlnj-lib";
 
 use "symbol";
+
+use "util/errormsg/errormsg.sml";
+
+use "lvar";
