@@ -13,6 +13,7 @@ mlpolyr.x86-linux
 
 # misc
 check
+ML_State
 
 # Binaries
 *.o
