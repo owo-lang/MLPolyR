@@ -27,7 +27,11 @@ val source =
      "lambda2anf",
      "pranf",
      "tvar",
-     "types"
+     "types",
+
+     "util/poly_mlyacc.sml",
+     "mlpolyr.grm.sig",
+     "mlpolyr.grm.sml"
     ]
 
 val () = List.app use source;
