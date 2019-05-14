@@ -85,7 +85,8 @@ end = struct
 		  (case M.find (m, v) of
 		       SOME bi => bi
 		     | NONE => VALUE x)
-	      | bindinfo _ (x as (A.INT _ | A.LABEL _)) = VALUE x
+	      | bindinfo _ (x as (A.INT _)) = VALUE x
+        | bindinfo _ (x as (A.LABEL _)) = VALUE x
 
 	    fun bi2val (VALUE x) = x
 	      | bi2val (RECORD (v, _)) = A.VAR v
@@ -94,7 +95,8 @@ end = struct
 	    fun value m x = bi2val (bindinfo m x)
 
 	    fun fvx (A.VAR v) = S.singleton v
-	      | fvx (A.INT _ | A.LABEL _) = S.empty
+	      | fvx (A.INT _) = S.empty
+        | fvx (A.LABEL _) = S.empty
 
 	    fun fvxl [] = S.empty
 	      | fvxl (x :: xs) = fvx x ++ fvxl xs
@@ -320,18 +322,25 @@ end = struct
 			    end handle _ => default (x', y'))
 		       | (A.INT i, x') =>
 			   (case (i, aop) of
-				((0, O.PLUS) | (1, O.TIMES)) =>
-				  exp (bindval (v, x', m)) e
+				      (0, O.PLUS) =>
+				      exp (bindval (v, x', m)) e
+            | (1, O.TIMES) =>
+				      exp (bindval (v, x', m)) e
 			      | (0, O.TIMES) =>
-				  exp (bindval (v, A.INT 0, m)) e
+				      exp (bindval (v, A.INT 0, m)) e
 			      | _ => default (A.INT i, x'))
 		       | (x', A.INT i) =>
 			   (case (i, aop) of
-				((0, (O.PLUS | O.MINUS)) |
-				 (1, (O.TIMES | O.DIV))) =>
-				  exp (bindval (v, x', m)) e
-			      | (0, (O.TIMES | O.DIV)) =>
-				  exp (bindval (v, A.INT 0, m)) e
+              (0, aop) =>
+              if aop = O.PLUS orelse aop = O.MINUS
+              then exp (bindval (v, x', m)) e
+              else if aop = O.TIMES orelse aop = O.DIV
+              then exp (bindval (v, A.INT 0, m)) e
+              else default (x', A.INT i)
+            | (1, O.TIMES) =>
+				      exp (bindval (v, x', m)) e
+            | (1, O.DIV) =>
+				      exp (bindval (v, x', m)) e
 			      | _ => default (x', A.INT i))
 		       | (x', y') => default (x', y')
 		  end

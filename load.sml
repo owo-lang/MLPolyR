@@ -23,6 +23,7 @@ val source =
 
      "ast",
      "anf",
+     "anf-opt",
      "anf-interpreter",
      "lambda2anf",
      "pranf",
@@ -31,7 +32,8 @@ val source =
 
      "util/poly_mlyacc.sml",
      "mlpolyr.grm.sig",
-     "mlpolyr.grm.sml"
+     "mlpolyr.grm.sml",
+     "mlpolyr.lex.sml"
     ]
 
 val () = List.app use source;
