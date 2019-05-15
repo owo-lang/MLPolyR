@@ -23,11 +23,6 @@ val source =
 
      "reclab",
 
-     "typesutil",
-     "env",
-     "extacc",
-     "baseenv",
-
      "ast",
      "anf",
      "anf-opt",
@@ -36,11 +31,19 @@ val source =
      "pranf",
      "tvar",
      "types",
+     "typesutil",
+     "env",
+     "extacc",
+     "baseenv",
+
 
      "util/poly_mlyacc.sml",
      "mlpolyr.grm.sig",
      "mlpolyr.grm.sml",
-     "mlpolyr.lex.sml"
+     "mlpolyr.lex.sml",
+
+     "util/poly_sourcemap"
+
     ]
 
 val () = List.app use source;

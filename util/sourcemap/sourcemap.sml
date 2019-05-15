@@ -142,7 +142,8 @@ struct
 	  lines := (newpos, SYNC(line,column,newpos-initpos)) :: !lines
       end
 
-  fun lineNo (LINE l | SYNC(l,_,_)) = l
+  fun lineNo (LINE l) = l
+    | lineNo (SYNC(l,_,_)) = l
 
   (* Since pos is the position of the newline character, the next line doesn't
    * start until the succeeding position, pos+1. *)

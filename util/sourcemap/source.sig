@@ -13,7 +13,7 @@ signature SOURCE =
         anyErrors: bool ref
       }
 
-    val newSource : (string * TextIO.instream * bool * PrettyPrintNew.device)
+    val newSource : (string * TextIO.instream * bool)
           -> inputSource
 
     val closeSource: inputSource -> unit
