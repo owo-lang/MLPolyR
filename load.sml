@@ -18,8 +18,15 @@ val source =
      "label",
      "lambda",
      "lambda-interpreter",
+     "treeops",
+     "bbtree",
 
      "reclab",
+
+     "typesutil",
+     "env",
+     "extacc",
+     "baseenv",
 
      "ast",
      "anf",

@@ -16,17 +16,14 @@ end = struct
                      structure Lex=Lex
 		     structure LrParser = LrParser)
 
-    val errcons = ErrorMsg.defaultConsumer ()
 
     fun parse filename =
 	let val _ = LVar.reset ()
 	    val _ = Label.reset ()
 	    val file = TextIO.openIn filename
-	    val source = Source.newSource (filename, file, false, errcons)
+	    val source = Source.newSource (filename, file, false)
 	    val sm = #sourceMap source
-	    fun error r m =
-		ErrorMsg.error source r ErrorMsg.COMPLAIN m
-			       ErrorMsg.nullErrorBody
+	    val error = ErrorMsg.error
 	    val depth = ref 0
 	    fun enterC () = depth := !depth + 1
 	    fun leaveC () = let val d = !depth - 1 in depth := d; d = 0 end
