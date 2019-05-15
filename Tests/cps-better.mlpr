@@ -41,7 +41,7 @@ let val n = { i := 1000 }
         default: other (cvt, kb)
 
     fun cvt_lcc_c other (cvt, kb) =
-	cases `LetCC (x, e) => ...
+	cases `LetCC (x, e) => (*...*)233
         default: other (cvt, kb)
 
     fun convert_if e = mkConvert (cvt_if_c cvt_c, e)
