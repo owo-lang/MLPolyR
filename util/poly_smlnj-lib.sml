@@ -39,7 +39,7 @@ val util = [
 "format-sig.sml",
 "real-format.sml",
 "fmt-fields.sml",
-"format.sml",
+(* "format.sml", *)
 "priority-sig.sml",
 "hash-key-sig.sml",
 "mono-hash-table-sig.sml",
@@ -82,9 +82,9 @@ val util = [
 "format-comb-sig.sml",
 "format-comb.sml",
 "queue-sig.sml",
-"fifo-sig.sml",
+(* "fifo-sig.sml",
 "fifo.sml",
-"queue.sml",
+"queue.sml", *)
 "hash2-table-fn.sml",
 "word-hash-table.sml",
 "keyword-fn.sml",

@@ -1,3 +1,4 @@
+(* This file is a stub, needs rewrite *)
 signature ERRORMSG =
 sig
     val anyErrors : bool ref
@@ -5,7 +6,7 @@ sig
     val lineNum : int ref
     val linePos : int list ref
     val sourceStream : TextIO.instream ref
-    val error : int -> string -> unit
+    val error : (int * int) -> string -> unit
     exception Error
     val impossible : string -> 'a   (* raises Error *)
     val reset : unit -> unit
@@ -28,21 +29,15 @@ struct
 
   exception Error
 
-  fun error pos (msg:string) =
-      let fun look(a::rest,n) =
-		if a<pos then app print [":",
-				       Int.toString n,
-				       ".",
-				       Int.toString (pos-a)]
-		       else look(rest,n-1)
-	    | look _ = print "0.0"
-       in anyErrors := true;
-	  print (!fileName);
-	  look(!linePos,!lineNum);
-	  print ":";
-	  print msg;
-	  print "\n"
-      end
+  fun error (x,y) (msg:string) =
+      (app print [":",
+				          Int.toString x,
+				          ".",
+				          Int.toString y];
+	     print ":";
+	     print msg;
+	     print "\n")
+
 
   fun impossible msg =
       (app print ["Error: Compiler bug: ",msg,"\n"];
