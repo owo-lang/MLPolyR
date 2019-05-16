@@ -1,7 +1,0 @@
-let fun f b =
-	try r = if b then 0 else raise `A 10
-        in r
-	handling `A i => i+1
-	end
-in f true + f false
-end

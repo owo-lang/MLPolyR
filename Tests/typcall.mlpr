@@ -1,6 +1,0 @@
-let fun f x = String.output (String.concat [x.g, x.b])
-    val g = f
-in g { a = true, b = "\n", c = 1, d = 2, e = 23,
-       f = "foobar", g = "hello world",  h = 1 };
-   0
-end

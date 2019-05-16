@@ -1,7 +1,0 @@
-let fun reverse (x, y) =
-	case x of
-	    [] => y
-	  | h :: t => reverse (t, h :: y)
-in String.output (String.concat (reverse ("\n" :: String.cmdline_args, [])));
-   0
-end

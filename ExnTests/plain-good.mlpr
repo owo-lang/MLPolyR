@@ -1,6 +1,0 @@
-try _ = if String.compare (String.inputLine (), "!\n") == 0 then
-	    raise `Fail ()
-	else String.output "good!\n"
-in 0
-handling `Fail () => (String.output "too bad...\n"; 1)
-end

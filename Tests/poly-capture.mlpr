@@ -1,7 +1,0 @@
-let fun split { a, b, ... = r } = (a, b, r)
-    val (a, b, r) = split { a = 1, b = 11, c = 22, d = 44, e = 5 }
-    fun itos i = String.fromInt i
-in String.output (String.concat [itos a, " ", itos b, " ",
-				 itos r.c, " ", itos r.d, "\n"]);
-   0
-end

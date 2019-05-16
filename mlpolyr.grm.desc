@@ -1,0 +1,5376 @@
+2 shift/reduce conflicts
+
+error:  state 84: shift/reduce conflict (shift KW_default, reduce by rule 122)
+error:  state 85: shift/reduce conflict (shift BAR, reduce by rule 113)
+
+state 0:
+
+	program : . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	program	goto 252
+	exp	goto 10
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 1:
+
+	atomicexp : number .  (reduce by rule 79)
+
+
+
+	.	reduce by rule 79
+
+
+state 2:
+
+	appexp0 : con . selexp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_nocases	shift 22
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 34
+	selexp0	goto 5
+	number	goto 1
+
+	.	error
+
+
+state 3:
+
+	appexp : appexp0 .  (reduce by rule 71)
+
+
+
+	.	reduce by rule 71
+
+
+state 4:
+
+	exp0 : appexp .  (reduce by rule 60)
+	appexp0 : appexp . selexp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_nocases	shift 22
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 35
+	selexp0	goto 5
+	number	goto 1
+
+	.	reduce by rule 60
+
+
+state 5:
+
+	selexp : selexp0 .  (reduce by rule 76)
+
+
+
+	.	reduce by rule 76
+
+
+state 6:
+
+	exp0 : selexp . EXCLAM label ASSIGN exp 
+	selexp0 : selexp . DOT label 
+	selexp0 : selexp . EXCLAM label 
+	selexp0 : selexp . PLUSPLUS label 
+	appexp0 : selexp .  (reduce by rule 65)
+
+	DOT	shift 38
+	EXCLAM	shift 37
+	PLUSPLUS	shift 36
+
+
+	.	reduce by rule 65
+
+
+state 7:
+
+	selexp0 : atomicexp .  (reduce by rule 72)
+
+
+
+	.	reduce by rule 72
+
+
+state 8:
+
+	atomicexp : recordexp .  (reduce by rule 87)
+
+
+
+	.	reduce by rule 87
+
+
+state 9:
+
+	exp : exp0 .  (reduce by rule 64)
+
+
+
+	.	reduce by rule 64
+
+
+state 10:
+
+	program : exp .  (reduce by rule 0)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 0
+
+
+state 11:
+
+	con : BQ . label 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+
+	label	goto 54
+
+	.	error
+
+
+state 12:
+
+	appexp0 : MINUS . selexp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_nocases	shift 22
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 57
+	selexp0	goto 5
+	number	goto 1
+
+	.	error
+
+
+state 13:
+
+	atomicexp : LSB . explistopt RSB 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 60
+	exp0	goto 9
+	recordexp	goto 8
+	explistopt	goto 59
+	explist'	goto 58
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	reduce by rule 101
+
+
+state 14:
+
+	recordexp : LCBB . rowexp RCBB 
+
+	NAME	shift 66
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 65
+
+	rowexp	goto 64
+	fieldexpseq	goto 63
+	fieldexp	goto 62
+	label	goto 61
+
+	.	reduce by rule 91
+
+
+state 15:
+
+	recordexp : LCB . rowexp RCB 
+
+	NAME	shift 66
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 65
+
+	rowexp	goto 67
+	fieldexpseq	goto 63
+	fieldexp	goto 62
+	label	goto 61
+
+	.	reduce by rule 91
+
+
+state 16:
+
+	atomicexp : LP . RP 
+	atomicexp : LP . exp RP 
+	atomicexp : LP . expseq' RP 
+	atomicexp : LP . explist' RP 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	RP	shift 71
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 70
+	exp0	goto 9
+	recordexp	goto 8
+	expseq'	goto 69
+	explist'	goto 68
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 17:
+
+	appexp0 : KW_not . selexp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_nocases	shift 22
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 72
+	selexp0	goto 5
+	number	goto 1
+
+	.	error
+
+
+state 18:
+
+	appexp0 : KW_isnull . selexp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_nocases	shift 22
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 73
+	selexp0	goto 5
+	number	goto 1
+
+	.	error
+
+
+state 19:
+
+	exp0 : KW_raise . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 74
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 20:
+
+	exp0 : KW_try . pat EQ exp KW_in exp handlers KW_end 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 75
+
+	.	error
+
+
+state 21:
+
+	exp0 : KW_case . exp KW_of dtmatch 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 83
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 22:
+
+	atomicexp : KW_nocases .  (reduce by rule 88)
+
+
+
+	.	reduce by rule 88
+
+
+state 23:
+
+	exp0 : KW_cases . mrlist defaultmatch 
+
+	BQ	shift 86
+
+	mr	goto 85
+	mrlist	goto 84
+
+	.	error
+
+
+state 24:
+
+	exp0 : KW_match . exp KW_with exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 87
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 25:
+
+	exp0 : KW_fn . pat DARROW exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 88
+
+	.	error
+
+
+state 26:
+
+	exp0 : KW_let . defs KW_in seqexp KW_end 
+
+	KW_fun	shift 92
+	KW_val	shift 91
+
+	def	goto 90
+	defs	goto 89
+
+	.	reduce by rule 35
+
+
+state 27:
+
+	atomicexp : KW_true .  (reduce by rule 77)
+
+
+
+	.	reduce by rule 77
+
+
+state 28:
+
+	atomicexp : KW_false .  (reduce by rule 78)
+
+
+
+	.	reduce by rule 78
+
+
+state 29:
+
+	exp0 : KW_if . exp KW_then exp KW_else exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 93
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 30:
+
+	atomicexp : STRING .  (reduce by rule 80)
+
+
+
+	.	reduce by rule 80
+
+
+state 31:
+
+	number : SMALLNUM .  (reduce by rule 111)
+
+
+
+	.	reduce by rule 111
+
+
+state 32:
+
+	number : NUMBER .  (reduce by rule 110)
+
+
+
+	.	reduce by rule 110
+
+
+state 33:
+
+	atomicexp : NAME .  (reduce by rule 81)
+
+
+
+	.	reduce by rule 81
+
+
+state 34:
+
+	selexp0 : selexp . DOT label 
+	selexp0 : selexp . EXCLAM label 
+	selexp0 : selexp . PLUSPLUS label 
+	appexp0 : con selexp .  (reduce by rule 70)
+
+	DOT	shift 38
+	EXCLAM	shift 94
+	PLUSPLUS	shift 36
+
+
+	.	reduce by rule 70
+
+
+state 35:
+
+	selexp0 : selexp . DOT label 
+	selexp0 : selexp . EXCLAM label 
+	selexp0 : selexp . PLUSPLUS label 
+	appexp0 : appexp selexp .  (reduce by rule 66)
+
+	DOT	shift 38
+	EXCLAM	shift 94
+	PLUSPLUS	shift 36
+
+
+	.	reduce by rule 66
+
+
+state 36:
+
+	selexp0 : selexp PLUSPLUS . label 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+
+	label	goto 95
+
+	.	error
+
+
+state 37:
+
+	exp0 : selexp EXCLAM . label ASSIGN exp 
+	selexp0 : selexp EXCLAM . label 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+
+	label	goto 96
+
+	.	error
+
+
+state 38:
+
+	selexp0 : selexp DOT . label 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+
+	label	goto 97
+
+	.	error
+
+
+state 39:
+
+	exp0 : exp MOD . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 98
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 40:
+
+	exp0 : exp DIV . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 99
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 41:
+
+	exp0 : exp TIMES . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 100
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 42:
+
+	exp0 : exp MINUS . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 101
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 43:
+
+	exp0 : exp PLUS . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 102
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 44:
+
+	exp0 : exp DCOLON . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 103
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 45:
+
+	exp0 : exp NEQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 104
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 46:
+
+	exp0 : exp GT . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 105
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 47:
+
+	exp0 : exp GTEQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 106
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 48:
+
+	exp0 : exp LT . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 107
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 49:
+
+	exp0 : exp LTEQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 108
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 50:
+
+	exp0 : exp DEQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 109
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 51:
+
+	exp0 : exp KW_where . recordexp 
+
+	LCB	shift 15
+	LCBB	shift 14
+
+	recordexp	goto 110
+
+	.	error
+
+
+state 52:
+
+	exp0 : exp KW_orelse . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 111
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 53:
+
+	exp0 : exp KW_andalso . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 112
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 54:
+
+	con : BQ label .  (reduce by rule 100)
+
+
+
+	.	reduce by rule 100
+
+
+state 55:
+
+	label : SMALLNUM .  (reduce by rule 99)
+
+
+
+	.	reduce by rule 99
+
+
+state 56:
+
+	label : NAME .  (reduce by rule 98)
+
+
+
+	.	reduce by rule 98
+
+
+state 57:
+
+	selexp0 : selexp . DOT label 
+	selexp0 : selexp . EXCLAM label 
+	selexp0 : selexp . PLUSPLUS label 
+	appexp0 : MINUS selexp .  (reduce by rule 67)
+
+	DOT	shift 38
+	EXCLAM	shift 94
+	PLUSPLUS	shift 36
+
+
+	.	reduce by rule 67
+
+
+state 58:
+
+	explistopt : explist' .  (reduce by rule 103)
+
+
+
+	.	reduce by rule 103
+
+
+state 59:
+
+	atomicexp : LSB explistopt . RSB 
+
+	RSB	shift 113
+
+
+	.	error
+
+
+state 60:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	explistopt : exp .  (reduce by rule 102)
+	explist' : exp . COMMA exp 
+	explist' : exp . COMMA explist' 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	COMMA	shift 114
+
+
+	.	reduce by rule 102
+
+
+state 61:
+
+	fieldexp : label . EQ exp 
+
+	EQ	shift 115
+
+
+	.	error
+
+
+state 62:
+
+	fieldexpseq : fieldexp .  (reduce by rule 93)
+	fieldexpseq : fieldexp . COMMA fieldexpseq 
+
+	COMMA	shift 116
+
+
+	.	reduce by rule 93
+
+
+state 63:
+
+	rowexp : fieldexpseq .  (reduce by rule 92)
+
+
+
+	.	reduce by rule 92
+
+
+state 64:
+
+	recordexp : LCBB rowexp . RCBB 
+
+	RCBB	shift 117
+
+
+	.	error
+
+
+state 65:
+
+	fieldexp : DOTDOTDOT . EQ exp 
+
+	EQ	shift 118
+
+
+	.	error
+
+
+state 66:
+
+	fieldexp : NAME .  (reduce by rule 96)
+	label : NAME .  (reduce by rule 98)
+
+	RCB	reduce by rule 96
+	RCBB	reduce by rule 96
+	EQ	reduce by rule 98
+	COMMA	reduce by rule 96
+
+
+	.	error
+
+
+state 67:
+
+	recordexp : LCB rowexp . RCB 
+
+	RCB	shift 119
+
+
+	.	error
+
+
+state 68:
+
+	atomicexp : LP explist' . RP 
+
+	RP	shift 120
+
+
+	.	error
+
+
+state 69:
+
+	atomicexp : LP expseq' . RP 
+
+	RP	shift 121
+
+
+	.	error
+
+
+state 70:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	expseq' : exp . SEMI exp 
+	expseq' : exp . SEMI expseq' 
+	explist' : exp . COMMA exp 
+	explist' : exp . COMMA explist' 
+	atomicexp : LP exp . RP 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	RP	shift 123
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	COMMA	shift 114
+	SEMI	shift 122
+
+
+	.	error
+
+
+state 71:
+
+	atomicexp : LP RP .  (reduce by rule 82)
+
+
+
+	.	reduce by rule 82
+
+
+state 72:
+
+	selexp0 : selexp . DOT label 
+	selexp0 : selexp . EXCLAM label 
+	selexp0 : selexp . PLUSPLUS label 
+	appexp0 : KW_not selexp .  (reduce by rule 69)
+
+	DOT	shift 38
+	EXCLAM	shift 94
+	PLUSPLUS	shift 36
+
+
+	.	reduce by rule 69
+
+
+state 73:
+
+	selexp0 : selexp . DOT label 
+	selexp0 : selexp . EXCLAM label 
+	selexp0 : selexp . PLUSPLUS label 
+	appexp0 : KW_isnull selexp .  (reduce by rule 68)
+
+	DOT	shift 38
+	EXCLAM	shift 94
+	PLUSPLUS	shift 36
+
+
+	.	reduce by rule 68
+
+
+state 74:
+
+	exp0 : KW_raise exp .  (reduce by rule 40)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 40
+
+
+state 75:
+
+	exp0 : KW_try pat . EQ exp KW_in exp handlers KW_end 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	EQ	shift 124
+
+
+	.	error
+
+
+state 76:
+
+	pat : pat0 .  (reduce by rule 22)
+
+
+
+	.	reduce by rule 22
+
+
+state 77:
+
+	pat0 : BQ . LCB rowpat RCB 
+
+	LCB	shift 126
+
+
+	.	error
+
+
+state 78:
+
+	pat0 : WILD .  (reduce by rule 13)
+
+
+
+	.	reduce by rule 13
+
+
+state 79:
+
+	pat0 : LCBB . rowpat RCBB 
+
+	NAME	shift 132
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 131
+
+	label	goto 130
+	rowpat	goto 129
+	fieldpatlist	goto 128
+	fieldpat	goto 127
+
+	.	reduce by rule 25
+
+
+state 80:
+
+	pat0 : LCB . rowpat RCB 
+
+	NAME	shift 132
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 131
+
+	label	goto 130
+	rowpat	goto 133
+	fieldpatlist	goto 128
+	fieldpat	goto 127
+
+	.	reduce by rule 25
+
+
+state 81:
+
+	pat0 : LP . RP 
+	pat0 : LP . pat RP 
+	pat0 : LP . patlist RP 
+
+	NAME	shift 82
+	LP	shift 81
+	RP	shift 136
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 135
+	patlist	goto 134
+
+	.	error
+
+
+state 82:
+
+	pat0 : NAME .  (reduce by rule 14)
+
+
+
+	.	reduce by rule 14
+
+
+state 83:
+
+	exp0 : KW_case exp . KW_of dtmatch 
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	KW_of	shift 137
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	error
+
+error:  state 84: shift/reduce conflict (shift KW_default, reduce by rule 122)
+
+state 84:
+
+	exp0 : KW_cases mrlist . defaultmatch 
+
+	KW_default	shift 139
+
+	defaultmatch	goto 138
+
+	.	reduce by rule 122
+
+error:  state 85: shift/reduce conflict (shift BAR, reduce by rule 113)
+
+state 85:
+
+	mrlist : mr .  (reduce by rule 113)
+	mrlist : mr . BAR mrlist 
+
+	BAR	shift 140
+
+
+	.	reduce by rule 113
+
+
+state 86:
+
+	mr : BQ . label pat DARROW exp 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+
+	label	goto 141
+
+	.	error
+
+
+state 87:
+
+	exp0 : KW_match exp . KW_with exp 
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_with	shift 142
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	error
+
+
+state 88:
+
+	exp0 : KW_fn pat . DARROW exp 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	DARROW	shift 143
+
+
+	.	error
+
+
+state 89:
+
+	exp0 : KW_let defs . KW_in seqexp KW_end 
+
+	KW_in	shift 144
+
+
+	.	error
+
+
+state 90:
+
+	defs : def . defs 
+
+	KW_fun	shift 92
+	KW_val	shift 91
+
+	def	goto 90
+	defs	goto 145
+
+	.	reduce by rule 35
+
+
+state 91:
+
+	def : KW_val . pat EQ exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 146
+
+	.	error
+
+
+state 92:
+
+	def : KW_fun . functions optrcl 
+
+	NAME	shift 149
+
+	function	goto 148
+	functions	goto 147
+
+	.	error
+
+
+state 93:
+
+	exp0 : KW_if exp . KW_then exp KW_else exp 
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_then	shift 150
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	error
+
+
+state 94:
+
+	selexp0 : selexp EXCLAM . label 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+
+	label	goto 151
+
+	.	error
+
+
+state 95:
+
+	selexp0 : selexp PLUSPLUS label .  (reduce by rule 75)
+
+
+
+	.	reduce by rule 75
+
+
+state 96:
+
+	exp0 : selexp EXCLAM label . ASSIGN exp 
+	selexp0 : selexp EXCLAM label .  (reduce by rule 74)
+
+	ASSIGN	shift 152
+
+
+	.	reduce by rule 74
+
+
+state 97:
+
+	selexp0 : selexp DOT label .  (reduce by rule 73)
+
+
+
+	.	reduce by rule 73
+
+
+state 98:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	exp0 : exp MOD exp .  (reduce by rule 58)
+
+
+
+	.	reduce by rule 58
+
+
+state 99:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp DIV exp .  (reduce by rule 57)
+	exp0 : exp . MOD exp 
+
+
+
+	.	reduce by rule 57
+
+
+state 100:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp TIMES exp .  (reduce by rule 56)
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+
+
+	.	reduce by rule 56
+
+
+state 101:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp MINUS exp .  (reduce by rule 55)
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 55
+
+
+state 102:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp PLUS exp .  (reduce by rule 54)
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 54
+
+
+state 103:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp DCOLON exp .  (reduce by rule 53)
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 53
+
+
+state 104:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp NEQ exp .  (reduce by rule 52)
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 52
+
+
+state 105:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp GT exp .  (reduce by rule 51)
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 51
+
+
+state 106:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp GTEQ exp .  (reduce by rule 50)
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 50
+
+
+state 107:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp LT exp .  (reduce by rule 49)
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 49
+
+
+state 108:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp LTEQ exp .  (reduce by rule 48)
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 48
+
+
+state 109:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp DEQ exp .  (reduce by rule 47)
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 47
+
+
+state 110:
+
+	exp0 : exp KW_where recordexp .  (reduce by rule 44)
+
+
+
+	.	reduce by rule 44
+
+
+state 111:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp KW_orelse exp .  (reduce by rule 45)
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 45
+
+
+state 112:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp KW_andalso exp .  (reduce by rule 46)
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 46
+
+
+state 113:
+
+	atomicexp : LSB explistopt RSB .  (reduce by rule 86)
+
+
+
+	.	reduce by rule 86
+
+
+state 114:
+
+	explist' : exp COMMA . exp 
+	explist' : exp COMMA . explist' 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 154
+	exp0	goto 9
+	recordexp	goto 8
+	explist'	goto 153
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 115:
+
+	fieldexp : label EQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 155
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 116:
+
+	fieldexpseq : fieldexp COMMA . fieldexpseq 
+
+	NAME	shift 66
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 65
+
+	fieldexpseq	goto 156
+	fieldexp	goto 62
+	label	goto 61
+
+	.	error
+
+
+state 117:
+
+	recordexp : LCBB rowexp RCBB .  (reduce by rule 90)
+
+
+
+	.	reduce by rule 90
+
+
+state 118:
+
+	fieldexp : DOTDOTDOT EQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 157
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 119:
+
+	recordexp : LCB rowexp RCB .  (reduce by rule 89)
+
+
+
+	.	reduce by rule 89
+
+
+state 120:
+
+	atomicexp : LP explist' RP .  (reduce by rule 85)
+
+
+
+	.	reduce by rule 85
+
+
+state 121:
+
+	atomicexp : LP expseq' RP .  (reduce by rule 84)
+
+
+
+	.	reduce by rule 84
+
+
+state 122:
+
+	expseq' : exp SEMI . exp 
+	expseq' : exp SEMI . expseq' 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 159
+	exp0	goto 9
+	recordexp	goto 8
+	expseq'	goto 158
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 123:
+
+	atomicexp : LP exp RP .  (reduce by rule 83)
+
+
+
+	.	reduce by rule 83
+
+
+state 124:
+
+	exp0 : KW_try pat EQ . exp KW_in exp handlers KW_end 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 160
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 125:
+
+	pat0 : pat KW_as . pat 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 161
+
+	.	error
+
+
+state 126:
+
+	pat0 : BQ LCB . rowpat RCB 
+
+	NAME	shift 132
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 131
+
+	label	goto 130
+	rowpat	goto 162
+	fieldpatlist	goto 128
+	fieldpat	goto 127
+
+	.	reduce by rule 25
+
+
+state 127:
+
+	fieldpatlist : fieldpat .  (reduce by rule 27)
+	fieldpatlist : fieldpat . COMMA fieldpatlist 
+
+	COMMA	shift 163
+
+
+	.	reduce by rule 27
+
+
+state 128:
+
+	rowpat : fieldpatlist .  (reduce by rule 26)
+
+
+
+	.	reduce by rule 26
+
+
+state 129:
+
+	pat0 : LCBB rowpat . RCBB 
+
+	RCBB	shift 164
+
+
+	.	error
+
+
+state 130:
+
+	fieldpat : label . EQ pat 
+
+	EQ	shift 165
+
+
+	.	error
+
+
+state 131:
+
+	fieldpat : DOTDOTDOT .  (reduce by rule 31)
+	fieldpat : DOTDOTDOT . EQ pat 
+
+	EQ	shift 166
+
+
+	.	reduce by rule 31
+
+
+state 132:
+
+	label : NAME .  (reduce by rule 98)
+	fieldpat : NAME .  (reduce by rule 29)
+
+	RCB	reduce by rule 29
+	RCBB	reduce by rule 29
+	EQ	reduce by rule 98
+	COMMA	reduce by rule 29
+
+
+	.	error
+
+
+state 133:
+
+	pat0 : LCB rowpat . RCB 
+
+	RCB	shift 167
+
+
+	.	error
+
+
+state 134:
+
+	pat0 : LP patlist . RP 
+
+	RP	shift 168
+
+
+	.	error
+
+
+state 135:
+
+	pat0 : LP pat . RP 
+	pat0 : pat . KW_as pat 
+	patlist : pat . COMMA pat 
+	patlist : pat . COMMA patlist 
+
+	KW_as	shift 125
+	RP	shift 170
+	COMMA	shift 169
+
+
+	.	error
+
+
+state 136:
+
+	pat0 : LP RP .  (reduce by rule 15)
+
+
+
+	.	reduce by rule 15
+
+
+state 137:
+
+	exp0 : KW_case exp KW_of . dtmatch 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	LSB	shift 173
+	WILD	shift 78
+	BQ	shift 77
+
+	dtmatch	goto 172
+	pat0	goto 76
+	pat	goto 171
+
+	.	error
+
+
+state 138:
+
+	exp0 : KW_cases mrlist defaultmatch .  (reduce by rule 43)
+
+
+
+	.	reduce by rule 43
+
+
+state 139:
+
+	defaultmatch : KW_default . COLON exp 
+
+	COLON	shift 174
+
+
+	.	error
+
+
+state 140:
+
+	mrlist : mr BAR . mrlist 
+
+	BQ	shift 86
+
+	mr	goto 85
+	mrlist	goto 175
+
+	.	error
+
+
+state 141:
+
+	mr : BQ label . pat DARROW exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 176
+
+	.	error
+
+
+state 142:
+
+	exp0 : KW_match exp KW_with . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 177
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 143:
+
+	exp0 : KW_fn pat DARROW . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 178
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 144:
+
+	exp0 : KW_let defs KW_in . seqexp KW_end 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 181
+	exp0	goto 9
+	recordexp	goto 8
+	expseq'	goto 180
+	seqexp	goto 179
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 145:
+
+	defs : def defs .  (reduce by rule 36)
+
+
+
+	.	reduce by rule 36
+
+
+state 146:
+
+	def : KW_val pat . EQ exp 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	EQ	shift 182
+
+
+	.	error
+
+
+state 147:
+
+	def : KW_fun functions . optrcl 
+
+	KW_with	shift 184
+
+	optrcl	goto 183
+
+	.	reduce by rule 5
+
+
+state 148:
+
+	functions : function . morefunctions 
+
+	KW_and	shift 186
+
+	morefunctions	goto 185
+
+	.	reduce by rule 3
+
+
+state 149:
+
+	function : NAME . formals EQ exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	formals	goto 188
+	pat0	goto 76
+	pat	goto 187
+
+	.	error
+
+
+state 150:
+
+	exp0 : KW_if exp KW_then . exp KW_else exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 189
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 151:
+
+	selexp0 : selexp EXCLAM label .  (reduce by rule 74)
+
+
+
+	.	reduce by rule 74
+
+
+state 152:
+
+	exp0 : selexp EXCLAM label ASSIGN . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 190
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 153:
+
+	explist' : exp COMMA explist' .  (reduce by rule 105)
+
+
+
+	.	reduce by rule 105
+
+
+state 154:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	explist' : exp . COMMA exp 
+	explist' : exp COMMA exp .  (reduce by rule 104)
+	explist' : exp . COMMA explist' 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	COMMA	shift 114
+
+
+	.	reduce by rule 104
+
+
+state 155:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	fieldexp : label EQ exp .  (reduce by rule 95)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 95
+
+
+state 156:
+
+	fieldexpseq : fieldexp COMMA fieldexpseq .  (reduce by rule 94)
+
+
+
+	.	reduce by rule 94
+
+
+state 157:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	fieldexp : DOTDOTDOT EQ exp .  (reduce by rule 97)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 97
+
+
+state 158:
+
+	expseq' : exp SEMI expseq' .  (reduce by rule 107)
+
+
+
+	.	reduce by rule 107
+
+
+state 159:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	expseq' : exp . SEMI exp 
+	expseq' : exp SEMI exp .  (reduce by rule 106)
+	expseq' : exp . SEMI expseq' 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	SEMI	shift 122
+
+
+	.	reduce by rule 106
+
+
+state 160:
+
+	exp0 : KW_try pat EQ exp . KW_in exp handlers KW_end 
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_in	shift 191
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	error
+
+
+state 161:
+
+	pat0 : pat . KW_as pat 
+	pat0 : pat KW_as pat .  (reduce by rule 21)
+
+
+
+	.	reduce by rule 21
+
+
+state 162:
+
+	pat0 : BQ LCB rowpat . RCB 
+
+	RCB	shift 192
+
+
+	.	error
+
+
+state 163:
+
+	fieldpatlist : fieldpat COMMA . fieldpatlist 
+
+	NAME	shift 132
+	SMALLNUM	shift 55
+	DOTDOTDOT	shift 131
+
+	label	goto 130
+	fieldpatlist	goto 193
+	fieldpat	goto 127
+
+	.	error
+
+
+state 164:
+
+	pat0 : LCBB rowpat RCBB .  (reduce by rule 19)
+
+
+
+	.	reduce by rule 19
+
+
+state 165:
+
+	fieldpat : label EQ . pat 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 194
+
+	.	error
+
+
+state 166:
+
+	fieldpat : DOTDOTDOT EQ . pat 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 195
+
+	.	error
+
+
+state 167:
+
+	pat0 : LCB rowpat RCB .  (reduce by rule 18)
+
+
+
+	.	reduce by rule 18
+
+
+state 168:
+
+	pat0 : LP patlist RP .  (reduce by rule 17)
+
+
+
+	.	reduce by rule 17
+
+
+state 169:
+
+	patlist : pat COMMA . pat 
+	patlist : pat COMMA . patlist 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 197
+	patlist	goto 196
+
+	.	error
+
+
+state 170:
+
+	pat0 : LP pat RP .  (reduce by rule 16)
+
+
+
+	.	reduce by rule 16
+
+
+state 171:
+
+	dtmatch : pat . DCOLON pat DARROW exp BAR LSB RSB DARROW exp 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	DCOLON	shift 198
+
+
+	.	error
+
+
+state 172:
+
+	exp0 : KW_case exp KW_of dtmatch .  (reduce by rule 39)
+
+
+
+	.	reduce by rule 39
+
+
+state 173:
+
+	dtmatch : LSB . RSB DARROW exp BAR pat DCOLON pat DARROW exp 
+
+	RSB	shift 199
+
+
+	.	error
+
+
+state 174:
+
+	defaultmatch : KW_default COLON . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 200
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 175:
+
+	mrlist : mr BAR mrlist .  (reduce by rule 114)
+
+
+
+	.	reduce by rule 114
+
+
+state 176:
+
+	pat0 : pat . KW_as pat 
+	mr : BQ label pat . DARROW exp 
+
+	KW_as	shift 125
+	DARROW	shift 201
+
+
+	.	error
+
+
+state 177:
+
+	exp0 : KW_match exp KW_with exp .  (reduce by rule 42)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 42
+
+
+state 178:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	exp0 : KW_fn pat DARROW exp .  (reduce by rule 59)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 59
+
+
+state 179:
+
+	exp0 : KW_let defs KW_in seqexp . KW_end 
+
+	KW_end	shift 202
+
+
+	.	error
+
+
+state 180:
+
+	seqexp : expseq' .  (reduce by rule 109)
+
+
+
+	.	reduce by rule 109
+
+
+state 181:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	expseq' : exp . SEMI exp 
+	expseq' : exp . SEMI expseq' 
+	seqexp : exp .  (reduce by rule 108)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	SEMI	shift 122
+
+
+	.	reduce by rule 108
+
+
+state 182:
+
+	def : KW_val pat EQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 203
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 183:
+
+	def : KW_fun functions optrcl .  (reduce by rule 34)
+
+
+
+	.	reduce by rule 34
+
+
+state 184:
+
+	optrcl : KW_with . KW_cases rcl 
+
+	KW_cases	shift 204
+
+
+	.	error
+
+
+state 185:
+
+	functions : function morefunctions .  (reduce by rule 2)
+
+
+
+	.	reduce by rule 2
+
+
+state 186:
+
+	morefunctions : KW_and . functions 
+
+	NAME	shift 149
+
+	function	goto 148
+	functions	goto 205
+
+	.	error
+
+
+state 187:
+
+	formals : pat .  (reduce by rule 11)
+	formals : pat . formals 
+	pat0 : pat . KW_as pat 
+
+	NAME	shift 82
+	KW_as	shift 125
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	formals	goto 206
+	pat0	goto 76
+	pat	goto 187
+
+	.	reduce by rule 11
+
+
+state 188:
+
+	function : NAME formals . EQ exp 
+
+	EQ	shift 207
+
+
+	.	error
+
+
+state 189:
+
+	exp0 : KW_if exp KW_then exp . KW_else exp 
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_else	shift 208
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	error
+
+
+state 190:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	exp0 : selexp EXCLAM label ASSIGN exp .  (reduce by rule 61)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 61
+
+
+state 191:
+
+	exp0 : KW_try pat EQ exp KW_in . exp handlers KW_end 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 209
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 192:
+
+	pat0 : BQ LCB rowpat RCB .  (reduce by rule 20)
+
+
+
+	.	reduce by rule 20
+
+
+state 193:
+
+	fieldpatlist : fieldpat COMMA fieldpatlist .  (reduce by rule 28)
+
+
+
+	.	reduce by rule 28
+
+
+state 194:
+
+	pat0 : pat . KW_as pat 
+	fieldpat : label EQ pat .  (reduce by rule 30)
+
+	KW_as	shift 125
+
+
+	.	reduce by rule 30
+
+
+state 195:
+
+	pat0 : pat . KW_as pat 
+	fieldpat : DOTDOTDOT EQ pat .  (reduce by rule 32)
+
+	KW_as	shift 125
+
+
+	.	reduce by rule 32
+
+
+state 196:
+
+	patlist : pat COMMA patlist .  (reduce by rule 24)
+
+
+
+	.	reduce by rule 24
+
+
+state 197:
+
+	pat0 : pat . KW_as pat 
+	patlist : pat . COMMA pat 
+	patlist : pat COMMA pat .  (reduce by rule 23)
+	patlist : pat . COMMA patlist 
+
+	KW_as	shift 125
+	COMMA	shift 169
+
+
+	.	reduce by rule 23
+
+
+state 198:
+
+	dtmatch : pat DCOLON . pat DARROW exp BAR LSB RSB DARROW exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 210
+
+	.	error
+
+
+state 199:
+
+	dtmatch : LSB RSB . DARROW exp BAR pat DCOLON pat DARROW exp 
+
+	DARROW	shift 211
+
+
+	.	error
+
+
+state 200:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	defaultmatch : KW_default COLON exp .  (reduce by rule 123)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 123
+
+
+state 201:
+
+	mr : BQ label pat DARROW . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 212
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 202:
+
+	exp0 : KW_let defs KW_in seqexp KW_end .  (reduce by rule 37)
+
+
+
+	.	reduce by rule 37
+
+
+state 203:
+
+	def : KW_val pat EQ exp .  (reduce by rule 33)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 33
+
+
+state 204:
+
+	optrcl : KW_with KW_cases . rcl 
+
+	NAME	shift 215
+
+	rc	goto 214
+	rcl	goto 213
+
+	.	error
+
+
+state 205:
+
+	morefunctions : KW_and functions .  (reduce by rule 4)
+
+
+
+	.	reduce by rule 4
+
+
+state 206:
+
+	formals : pat formals .  (reduce by rule 12)
+
+
+
+	.	reduce by rule 12
+
+
+state 207:
+
+	function : NAME formals EQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 216
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 208:
+
+	exp0 : KW_if exp KW_then exp KW_else . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 217
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 209:
+
+	exp0 : KW_try pat EQ exp KW_in exp . handlers KW_end 
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	KW_handling	shift 221
+	KW_rehandling	shift 220
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+	handlers	goto 219
+	rehandling	goto 218
+
+	.	reduce by rule 115
+
+
+state 210:
+
+	dtmatch : pat DCOLON pat . DARROW exp BAR LSB RSB DARROW exp 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	DARROW	shift 222
+
+
+	.	error
+
+
+state 211:
+
+	dtmatch : LSB RSB DARROW . exp BAR pat DCOLON pat DARROW exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 223
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 212:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	mr : BQ label pat DARROW exp .  (reduce by rule 112)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 112
+
+
+state 213:
+
+	optrcl : KW_with KW_cases rcl .  (reduce by rule 6)
+
+
+
+	.	reduce by rule 6
+
+
+state 214:
+
+	rcl : rc . morercl 
+
+	KW_and	shift 225
+
+	morercl	goto 224
+
+	.	reduce by rule 8
+
+
+state 215:
+
+	rc : NAME . EQ exp 
+
+	EQ	shift 226
+
+
+	.	error
+
+
+state 216:
+
+	function : NAME formals EQ exp .  (reduce by rule 1)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 1
+
+
+state 217:
+
+	exp0 : KW_if exp KW_then exp KW_else exp .  (reduce by rule 38)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 38
+
+
+state 218:
+
+	handlers : rehandling .  (reduce by rule 120)
+
+
+
+	.	reduce by rule 120
+
+
+state 219:
+
+	exp0 : KW_try pat EQ exp KW_in exp handlers . KW_end 
+
+	KW_end	shift 227
+
+
+	.	error
+
+
+state 220:
+
+	rehandling : KW_rehandling . mrlist 
+
+	BQ	shift 86
+
+	mr	goto 85
+	mrlist	goto 228
+
+	.	error
+
+
+state 221:
+
+	handlers : KW_handling . handling rehandling 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 232
+
+	pat0	goto 76
+	pat	goto 231
+	mr	goto 230
+	handling	goto 229
+
+	.	error
+
+
+state 222:
+
+	dtmatch : pat DCOLON pat DARROW . exp BAR LSB RSB DARROW exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 233
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 223:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	dtmatch : LSB RSB DARROW exp . BAR pat DCOLON pat DARROW exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	BAR	shift 234
+
+
+	.	error
+
+
+state 224:
+
+	rcl : rc morercl .  (reduce by rule 7)
+
+
+
+	.	reduce by rule 7
+
+
+state 225:
+
+	morercl : KW_and . rcl 
+
+	NAME	shift 215
+
+	rc	goto 214
+	rcl	goto 235
+
+	.	error
+
+
+state 226:
+
+	rc : NAME EQ . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 236
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 227:
+
+	exp0 : KW_try pat EQ exp KW_in exp handlers KW_end .  (reduce by rule 41)
+
+
+
+	.	reduce by rule 41
+
+
+state 228:
+
+	rehandling : KW_rehandling mrlist .  (reduce by rule 116)
+
+
+
+	.	reduce by rule 116
+
+
+state 229:
+
+	handlers : KW_handling handling . rehandling 
+
+	KW_rehandling	shift 220
+
+	rehandling	goto 237
+
+	.	reduce by rule 115
+
+
+state 230:
+
+	handling : mr .  (reduce by rule 118)
+	handling : mr . BAR handling 
+
+	BAR	shift 238
+
+
+	.	reduce by rule 118
+
+
+state 231:
+
+	pat0 : pat . KW_as pat 
+	handling : pat . DARROW exp 
+
+	KW_as	shift 125
+	DARROW	shift 239
+
+
+	.	error
+
+
+state 232:
+
+	pat0 : BQ . LCB rowpat RCB 
+	mr : BQ . label pat DARROW exp 
+
+	NAME	shift 56
+	SMALLNUM	shift 55
+	LCB	shift 126
+
+	label	goto 141
+
+	.	error
+
+
+state 233:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	dtmatch : pat DCOLON pat DARROW exp . BAR LSB RSB DARROW exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+	BAR	shift 240
+
+
+	.	error
+
+
+state 234:
+
+	dtmatch : LSB RSB DARROW exp BAR . pat DCOLON pat DARROW exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 241
+
+	.	error
+
+
+state 235:
+
+	morercl : KW_and rcl .  (reduce by rule 9)
+
+
+
+	.	reduce by rule 9
+
+
+state 236:
+
+	rc : NAME EQ exp .  (reduce by rule 10)
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 10
+
+
+state 237:
+
+	handlers : KW_handling handling rehandling .  (reduce by rule 121)
+
+
+
+	.	reduce by rule 121
+
+
+state 238:
+
+	handling : mr BAR . handling 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 232
+
+	pat0	goto 76
+	pat	goto 231
+	mr	goto 230
+	handling	goto 242
+
+	.	error
+
+
+state 239:
+
+	handling : pat DARROW . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 243
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 240:
+
+	dtmatch : pat DCOLON pat DARROW exp BAR . LSB RSB DARROW exp 
+
+	LSB	shift 244
+
+
+	.	error
+
+
+state 241:
+
+	dtmatch : LSB RSB DARROW exp BAR pat . DCOLON pat DARROW exp 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	DCOLON	shift 245
+
+
+	.	error
+
+
+state 242:
+
+	handling : mr BAR handling .  (reduce by rule 119)
+
+
+
+	.	reduce by rule 119
+
+
+state 243:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	handling : pat DARROW exp .  (reduce by rule 117)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 117
+
+
+state 244:
+
+	dtmatch : pat DCOLON pat DARROW exp BAR LSB . RSB DARROW exp 
+
+	RSB	shift 246
+
+
+	.	error
+
+
+state 245:
+
+	dtmatch : LSB RSB DARROW exp BAR pat DCOLON . pat DARROW exp 
+
+	NAME	shift 82
+	LP	shift 81
+	LCB	shift 80
+	LCBB	shift 79
+	WILD	shift 78
+	BQ	shift 77
+
+	pat0	goto 76
+	pat	goto 247
+
+	.	error
+
+
+state 246:
+
+	dtmatch : pat DCOLON pat DARROW exp BAR LSB RSB . DARROW exp 
+
+	DARROW	shift 248
+
+
+	.	error
+
+
+state 247:
+
+	dtmatch : LSB RSB DARROW exp BAR pat DCOLON pat . DARROW exp 
+	pat0 : pat . KW_as pat 
+
+	KW_as	shift 125
+	DARROW	shift 249
+
+
+	.	error
+
+
+state 248:
+
+	dtmatch : pat DCOLON pat DARROW exp BAR LSB RSB DARROW . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 250
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 249:
+
+	dtmatch : LSB RSB DARROW exp BAR pat DCOLON pat DARROW . exp 
+
+	NAME	shift 33
+	NUMBER	shift 32
+	SMALLNUM	shift 31
+	STRING	shift 30
+	KW_if	shift 29
+	KW_false	shift 28
+	KW_true	shift 27
+	KW_let	shift 26
+	KW_fn	shift 25
+	KW_match	shift 24
+	KW_cases	shift 23
+	KW_nocases	shift 22
+	KW_case	shift 21
+	KW_try	shift 20
+	KW_raise	shift 19
+	KW_isnull	shift 18
+	KW_not	shift 17
+	LP	shift 16
+	LCB	shift 15
+	LCBB	shift 14
+	LSB	shift 13
+	MINUS	shift 12
+	BQ	shift 11
+
+	exp	goto 251
+	exp0	goto 9
+	recordexp	goto 8
+	atomicexp	goto 7
+	selexp	goto 6
+	selexp0	goto 5
+	appexp	goto 4
+	appexp0	goto 3
+	con	goto 2
+	number	goto 1
+
+	.	error
+
+
+state 250:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	dtmatch : pat DCOLON pat DARROW exp BAR LSB RSB DARROW exp .  (reduce by rule 63)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 63
+
+
+state 251:
+
+	exp0 : exp . KW_where recordexp 
+	exp0 : exp . KW_orelse exp 
+	exp0 : exp . KW_andalso exp 
+	exp0 : exp . DEQ exp 
+	exp0 : exp . LTEQ exp 
+	exp0 : exp . LT exp 
+	exp0 : exp . GTEQ exp 
+	exp0 : exp . GT exp 
+	exp0 : exp . NEQ exp 
+	exp0 : exp . DCOLON exp 
+	exp0 : exp . PLUS exp 
+	exp0 : exp . MINUS exp 
+	exp0 : exp . TIMES exp 
+	exp0 : exp . DIV exp 
+	exp0 : exp . MOD exp 
+	dtmatch : LSB RSB DARROW exp BAR pat DCOLON pat DARROW exp .  (reduce by rule 62)
+
+	KW_andalso	shift 53
+	KW_orelse	shift 52
+	KW_where	shift 51
+	DEQ	shift 50
+	LTEQ	shift 49
+	LT	shift 48
+	GTEQ	shift 47
+	GT	shift 46
+	NEQ	shift 45
+	DCOLON	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	MOD	shift 39
+
+
+	.	reduce by rule 62
+
+
+state 252:
+
+
+	EOF	accept
+
+
+	.	error
+
+761 of 2064 action table entries left after compaction
+566 goto table entries

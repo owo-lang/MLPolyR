@@ -5,16 +5,13 @@
 .vs
 
 # Generated
-mlpolyr.grm.desc
-mlpolyr.grm.sig
-mlpolyr.grm.sml
-mlpolyr.lex.sml
 mlpolyr.x86-linux
 util/ml-lex/ml-lex
 util/ml-yacc/ml-yacc
 
 # misc
 check
+mlpolyr
 ML_State
 
 # Binaries
