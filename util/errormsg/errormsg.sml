@@ -6,7 +6,7 @@ sig
     val lineNum : int ref
     val linePos : int list ref
     val sourceStream : TextIO.instream ref
-    val error : (int * int) -> string -> unit
+    val error : int * int -> string -> unit
     exception Error
     val impossible : string -> 'a   (* raises Error *)
     val reset : unit -> unit
