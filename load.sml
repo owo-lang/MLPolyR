@@ -42,7 +42,8 @@ val source =
      "mlpolyr.grm.sml",
      "mlpolyr.lex.sml",
 
-     "util/poly_sourcemap"
+     "util/poly_sourcemap",
+     "parse"
 
     ]
 
