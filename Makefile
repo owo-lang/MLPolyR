@@ -22,7 +22,7 @@ mlpolyr.lex.sml: ml-lex mlpolyr.lex
 load:
 	poly --eval 'PolyML.SaveState.loadState "ML_State";'
 
-check:
+check: mlpolyr.lex.sml mlpolyr.grm.sml mlpolyr.grm.sig
 	polyc -o check check.sml
 
 ML_State: load.sml
