@@ -23,7 +23,7 @@ load:
 	poly --eval 'PolyML.SaveState.loadState "ML_State";'
 
 check:
-	polyc -o check load.sml	
+	polyc -o check check.sml
 
 ML_State: load.sml
 	poly < util/save.sml

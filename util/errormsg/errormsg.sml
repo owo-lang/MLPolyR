@@ -1,13 +1,12 @@
 (* This file is a stub, needs rewrite *)
 signature ERRORMSG =
 sig
-    val anyErrors : bool ref
     val fileName : string ref
     val lineNum : int ref
     val linePos : int list ref
     val sourceStream : TextIO.instream ref
     val error : int * int -> string -> unit
-    val anyErrors : errors -> bool
+    val anyErrors : Source.inputSource -> bool
     exception Error
     val impossible : string -> 'a   (* raises Error *)
     val matchErrorString : Source.inputSource -> SourceMap.region -> string
@@ -17,13 +16,13 @@ end
 structure ErrorMsg : ERRORMSG =
 struct
 
-  val anyErrors = ref false
+
   val fileName = ref ""
   val lineNum = ref 1
   val linePos = ref [1]
   val sourceStream = ref TextIO.stdIn
 
-  fun reset() = (anyErrors:=false;
+  fun reset() = (
 		 fileName:="";
 		 lineNum:=1;
 		 linePos:=[1];
@@ -74,7 +73,9 @@ struct
 
   val matchErrorString = location_string
 
-  fun anyErrors{anyErrors,error,errorMatch} = !anyErrors
+  fun anyErrors s = let val ref x = #anyErrors s
+                    in x
+                    end
 
 end  (* structure ErrorMsg *)
   
