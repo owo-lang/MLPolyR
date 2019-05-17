@@ -37,8 +37,7 @@ end = struct
 
     fun elaborate (src, baseenv, pdefs) (mainexp, mainregion) =
 	let fun error1 r m =
-		(ErrorMsg.error src r ErrorMsg.COMPLAIN (concat m)
-				ErrorMsg.nullErrorBody;
+		(ErrorMsg.error r (concat m);
 		 raise Elaborate)
 
 	    fun tyclasherr (r0, (r1, r2), m, t1, t2) =
@@ -47,14 +46,13 @@ end = struct
 		    val tos = TU.mkPrinter ()
 		    fun tos' t = tos (t2ts t)
 		    val (ts1, ts2) = (tos' t1, tos' t2)
-		in ErrorMsg.error src r0 ErrorMsg.COMPLAIN
+		in ErrorMsg.error r0
 				  (concat ["type mismatch: ", m,
 					   " [clash between ",
 					   ts1, " from ", reg1,
 					   " and ",
 					   ts2, " from ", reg2,
-					   "]"])
-				  ErrorMsg.nullErrorBody;
+					   "]"]);
 		   raise Elaborate
 		end
 
@@ -63,13 +61,12 @@ end = struct
 		    val reg2 = ErrorMsg.matchErrorString src r2
 		    val tos = TU.mkPrinter ()
 		    val ts = tos t
-		in ErrorMsg.error src r0 ErrorMsg.COMPLAIN
+		in ErrorMsg.error r0
 				  (concat ["record extension error: ", m,
 					   " [left-hand side type: ",
 					   ts, " from ", reg1,
 					" cannot be extended with fields from ",
-					   reg2, "]"])
-				  ErrorMsg.nullErrorBody;
+					   reg2, "]"]);
 		   raise Elaborate
 		end
 		
