@@ -61,11 +61,14 @@ structure Absyn = struct
 
     and pat = pat' * prepolytype
 
-    and function = { f: symbol, params: pat list, body: exp }
+    and function = { f: symbol,
+                     params: (pat' * prepolytype) list (* pat list *),
+                     body: exp }
 
     and reccases = { c: symbol, ct: typ, rhs: exp }
 
-    and rule = pat field * exp
+    and rule = RecordLabel.label * (pat' * prepolytype) * exp
+    (* pat field * exp *)
 
     type program = exp
 
