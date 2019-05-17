@@ -43,13 +43,14 @@ end = struct
 			case TVar.tget tv' of
 			    T.INST t => adj v t
 			  | T.OPEN (d', r') =>
-	                      (TVar.tset (tv', T.OPEN (Int.min (d, d'), r'));
-			       case v of
-				   TYVAR tv =>
-		                     if TVar.teq (tv, tv') then
-					 raise Circularity
-				     else ()
-				 | (RTYVAR _ | NOVAR) => ()))
+	        (TVar.tset (tv', T.OPEN (Int.min (d, d'), r'));
+			     case v of
+				       TYVAR tv =>
+		           if TVar.teq (tv, tv') then
+					         raise Circularity
+				       else ()
+				     | RTYVAR _  => ()
+             | NOVAR => ()))
 	      | adj v (T.CONty (T.SUMtyc, [], [rt], _)) =
 		  (* occurs check is turned off after stepping into
 		   * a SUM type: *)
@@ -68,9 +69,10 @@ end = struct
 		         (TVar.rset (rtv', T.ROPEN (Int.min (d, d'), k, r'));
 			  case v of
 			      RTYVAR rtv =>
-			        if TVar.req (rtv, rtv') then raise Circularity
-				else ()
-			    | (TYVAR _ | NOVAR) => ()))
+			      if TVar.req (rtv, rtv') then raise Circularity
+				    else ()
+			    | TYVAR _  => ()
+          | NOVAR => () ))
 	      | radj v (T.EMPTYrty _) = ()
 	      | radj v (T.FIELDrty ((_, (t, _)), rt)) = (adj v t; radj v rt)
 	in adj v t
