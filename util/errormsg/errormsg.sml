@@ -7,6 +7,7 @@ sig
     val linePos : int list ref
     val sourceStream : TextIO.instream ref
     val error : int * int -> string -> unit
+    val anyErrors : errors -> bool
     exception Error
     val impossible : string -> 'a   (* raises Error *)
     val matchErrorString : Source.inputSource -> SourceMap.region -> string
@@ -72,6 +73,8 @@ struct
       end
 
   val matchErrorString = location_string
+
+  fun anyErrors{anyErrors,error,errorMatch} = !anyErrors
 
 end  (* structure ErrorMsg *)
   
