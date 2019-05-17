@@ -12,6 +12,7 @@ val source =
 
      "symbol",
 
+     "util/poly_sourcemap",
      "util/errormsg/errormsg.sml",
 
      "lvar",
@@ -42,9 +43,10 @@ val source =
      "mlpolyr.grm.sml",
      "mlpolyr.lex.sml",
 
-     "util/poly_sourcemap",
-     "parse"
+     "parse",
 
+     "absyn",
+     "unify"
     ]
 
 val () = List.app use source;
