@@ -6,15 +6,15 @@
  *)
 structure LiteralData = struct
 
-    type integer = Int32.int
+    type integer = Int.int
 
-    val fromInt = Int32.fromInt
-    val toInt = Int32.toInt
+    val fromInt = Int.fromInt
+    val toInt = Int.toInt
 
-    val fromString = Int32.fromString
-    val toString = Int32.toString
+    val fromString = Int.fromString
+    val toString = Int.toString
 
-    val compare = Int32.compare
+    val compare = Int.compare
 
-    val toLarge = Int32.toLarge
+    val toLarge = Int.toLarge
 end
